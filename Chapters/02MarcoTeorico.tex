@@ -1,0 +1,72 @@
+% Marco teórico
+
+%----------------------------------------------------------------------------------------
+
+\chapter{Radar}
+% https://www.zona-militar.com/foros/threads/radar-vitro-rir-778c.24972/
+\label{ch:radar}
+
+\section{Historia}
+El CIA cuenta, desde la década del 80, con el radar de trayectografía Vitro RIR-778C. Este fue comprado en 1986 a la firma \emph{Vitro Corporation} (actualmente \emph{BAE Systems} por un valor aproximado de U\$S 4.000.000. Se lo utilizó para seguimiento de alta precisión de cohetería de la FAA del momento. \par
+En 2008 comienzo el proceso de recuperación a partir de financiamiento PIDDEF del Ministerio de Defensa.
+\begin{itemize}
+    \item PIDDEF 011/2008: Análisis y diagnóstico
+    \item PIDDEF 006/2010: Diseño de nueva computadora, interfaces y conexión de subsistemas
+    \item PIDDEF 024/2014: Transmisión de potencia, seguimiento automático exitoso de blancos hasta 140 km. de distancia.
+\end{itemize}
+
+\section{Performance}
+\begin{itemize}
+    \item Alcance teórico: 400 km.
+    \item Velocidad de giro de antena (EL y Az): 30°/s
+    \item Aceleración de antena (EL y Az): 30°/$s^{2}$
+    \item Velocidad de seguimiento en rango (EL y Az): 20000 m/s
+    \item Aceleración de seguimiento en rango (EL y Az): 2000 m/$s^{2}$
+    \item Posibilidad de funcionar en modo \emph{Skin} o \emph{Beacon}.
+    \item Integración de video en el interior del \emph{Shelter}.
+    \item Seguimiento inicial automático por procesamiento de imágenes (\emph{TV-Tracker}).
+\end{itemize}
+
+\section{Trabajo realizado}
+\begin{itemize}
+    \item El radar posee una computadora que estaba totalmente fuera de servicio. Se construyó una nueva en \emph{hardware} y \emph{software}.
+    \item Se desarrolló nuevas interfaces para la conexión entre la computadora y los distintos módulos del radar.
+    \item Se recorrieron varios subsistemas, reparándolos y/o calibrandolos cuando necesario.
+    \item Se ha logrado transmitir con una potencia efectiva de 130 kW (20\% de su potencia nominal).
+    \item Con la anterior potencia se logró seguir blancos con hasta 140 km de rango.
+\end{itemize}
+
+\section{Imágenes}
+ Loading...
+
+%----------------------------------------------------------------------------------------
+
+\chapter{Monopulso}
+% "Monopulse Principles and Techiques" Second Edition - Samuel M. Sherman y David K. Barton
+\label{ch:monopulse}
+
+\section{Introducción}
+
+Monopulso (también conocido como "comparación simultánea de lóbulos"), es una técnica para medir la dirección de radiación que se recibe. La radiación puede provenir de una fuente activa, como lo es una antena transmisora, o de una fuenta pasiva, es decir, objetos que re-irradian energía que incide en ellos.
+
+\section{Principios de radar}
+
+La función básica del radar es detectar la presencia de dispersores electromagnéticos (objetivos del radar) en el haz de la antena y determinar su posicion. En un radar típico, el transmisor genera pulsos de radiación electromagnética, usualmente a una tasa regular llamada \emph{frecuencia de repetición de pulso}. La antena irradia la salida del transmisor hacia el espacio, típicamente con un patrón direccional que concentra gran parte de la potencia en un haz angosto. \par
+La misma antena, en la mayoría de las veces, es también usada para la recepcion, pero no necesariamente con el mismo patrón. La señal recibida, que se encuentra en el espectro de la radio frecuencia. \par
+Si hay un objetivo en el haz, el radar recibe un \emph{echo} desde éste siguiendo cada pulso transmitido. La distancia entre el radar y el objeto se determina multiplicando la mitad del tiempo pasado entre el pulso transmitido y el pulso recibido (\emph{echo}) por la velocidad de la luz. \par
+Una forma cruda de determinar la posición angular del objetivo es mover el haz de la antena pasando la dirección del objetivo y notar cuál es la dirección que da la mayor amplitud del \emph{echo}. Este método es usado en muchos radares de búsqueda, sin embargo, si la presición debe ser muy fina, no es recomendado. \par
+La necesidad de mediciones de ángulo y distancia acertados y contínuos, llevan al desarrollo de los radares de trayectografía, empezando con los radares de la Segunda Guerra Mundial y culminando en los instrumentos súper sofisticados de hoy en día. La mejora más importante en la trayectografía angular fue el monopulso, que ahora es usado, además, para mediciones no angulares.
+
+%----------------------------------------------------------------------------------------
+
+\chapter{Procesamiento de señales}
+
+\label{ch:dsp} % For referencing the chapter elsewhere, use \autoref{ch:introduction} 
+
+%----------------------------------------------------------------------------------------
+
+\chapter{FPGA}
+
+\label{ch:fpga} % For referencing the chapter elsewhere, use \autoref{ch:introduction} 
+
+%----------------------------------------------------------------------------------------
