@@ -57,6 +57,172 @@ Si hay un objetivo en el haz, el radar recibe un \emph{echo} desde éste siguien
 Una forma cruda de determinar la posición angular del objetivo es mover el haz de la antena pasando la dirección del objetivo y notar cuál es la dirección que da la mayor amplitud del \emph{echo}. Este método es usado en muchos radares de búsqueda, sin embargo, si la presición debe ser muy fina, no es recomendado. \par
 La necesidad de mediciones de ángulo y distancia acertados y contínuos, llevan al desarrollo de los radares de trayectografía, empezando con los radares de la Segunda Guerra Mundial y culminando en los instrumentos súper sofisticados de hoy en día. La mejora más importante en la trayectografía angular fue el monopulso, que ahora es usado, además, para mediciones no angulares.
 
+\section{Radares de trayectografía y la evolución del monopulso}
+
+Un radar de trayectografía es un radar que automáticamente mantiene el eje del haz alineado con un objetivo seleccionado. Radares asi suelen tener un patrón de antena muy direccional. El ancho del haz es típicamente del orden de 1° en cada coordenada angular, aunque varía entre un radar y otro, e incluso un radar puede no tener el mismo ancho en sus dos coordenadas. \par
+Cualquier desviación del objetivo del eje del haz produce una señal de corrección (típicamente llamado \emph{error}) para cada coordenada, aproximadamente proporcional a la desviación angular en esa coordenada, con un signo de polaridad que indica el sentido del error (hacia arriba o abajo, hacia la izquierda o derecha). Esta señal de error es usada para controlar el eje del pedestal para que apunte hacia el objetivo. \par
+Un radar de trayectografía además \emph{trackea} en rango, manteniendo una puerta de rango (tiempo) centrada en el objetivo. Solo las señales recibidas durante esa puerta son aceptadas para el \emph{trackeo}. El intérvalo de tiempo entre los centros del pulso transmitido y la puerta de rango resulta en la medición de rango. Desviaciones del \emph{echo} del objetivo en relación al centro de la puerta de rango producen una señal de corrección, que tiende a mantener la puerta de rango centrada en el objetivo.
+
+\begin{figure}[h]
+    \includegraphics[width=10cm]{gfx/03_5.3_0.png}
+    \caption{Lóbulos en elevación}
+    \label{fig:lobes}
+\end{figure}
+
+En los primeros años en la historia del radar, una técnica para \emph{trackeo} angular llamada \emph{lobe switching} se empezó a usar. En esta técnia el haz del radar, en vez de apuntar directamente al objetivo, apunta ligeramente hacia un lado y luego hacia el otro, alternando rápidamente entre ellos. En la figura \ref{fig:lobes} se ilustra esta técnica en elevación. Si el objetivo está por encima o por debajo del eje, los ecos son distintos. Si suponemos que el objetivo está por encima del eje, como muestra la linea punteada en la imágen, entonces el eco del lóbulo 1 es mayor que el del lóbulo 2. La diferencia de voltaje, en este caso, positiva, indica que para centrar el eje, la antena tiene que apuntar más alto. La diferencia entre estos voltajes puede usarse en un sistema de control realimentado que controle un \emph{servo} motor que mueva el eje automáticamente. \par
+
+La misma operación puede hacerse en ambas coordenadas angulares. Además, se pueden combinar, permitiendo un \emph{trackeo} angular completo, requiriendo cuatro posiciones de haz, como muestra la figura \ref{fig:beams}(a). El haz puede ser movido electrónicamente o por rotaciones mecánicas entre los ejes. Si el movimiento es mecánico, es preferible moverlo de forma contínua y de manera circular, resultando en un escaneo cónico. El \emph{lobe switching} y el escaneo cónico se pueden combinar: aunque el movimiento del haz es contínuo en el escaneo cónico, el objetivo es iluminado solo cuando es alcanzado por un pulso transmitido, como muestra la figura \ref{fig:beams}(b). Si la tasa de escaneo es 30 ciclos por segundo (valor típico), y la tasa de repetición del pulso tiene un valor ilustrativo de 240 pulsos por segundo, entonces hay 8 posiciones de haz por escaneada.
+
+\begin{figure}[h]
+    \includegraphics[width=10cm]{gfx/03_5.3_1.png}
+    \caption{Tipos de posicionamientos secuenciales de los haces}
+    \label{fig:beams}
+\end{figure}
+
+La principal fuente de error en esta técnica es la fluctuación que ocurre en la fuerza del echo en la mayoría de los objetivos. Esta fluctuación, típicamente tiene una densidad espectral de poder considerable y cercana a la que tiene el \emph{lobing} y/o la frecuencia de escaneo, por lo que causa indicaciones angulares erróneas. En simples palabras, el radar no puede distinguir entre variaciones pulso-a-pulso en la amplitud del echo debido a desplazamientos del objetivo en los ejes de la antena y a estas fluctuaciones. \par
+
+Otra desventaja del \emph{sequential lobing} es la limitación en la tasa de datos impuesta por la necesidad de obtener, al menos, cuatro ecos sucesivos para cada par de ángulo. Esto puede ser una seria limitacion en el \emph{tracking} de objetivos que poseen aceleraciones angulares. En el caso del escaneo cónico, se le suma la desventaja de las vibraciones mecánicas, que complican el alineamiento de la mira. \par
+
+La solución que alivia estos problemas es el monopulso, también llamado \emph{simultaneous lobing} o \emph{simultaneous lobe comparison}.
+
+Una categoría de monopulso, llamada "monopulso de comparación de amplitud", es similar en concepto al \emph{lobe switching}, pero en vez de comparar los ecos en secuencias de a 4 coordenadas, genera los 4 haces simultáneamente y hace las comparaciones en cada pulso. (Si el monopulso es usado solamente en una coordenada angular, entonces los haces se convierten en 2 en vez de en 4.) Asi, con un solo haz transmitido alcanza, siendo este suficientemente ancho para abarcar los haces recibidos. Otra categoria es "monopulso de comparación de fase": esta opera un poco distinto, pero se mantiene el rasgo principal del monopulso que es comparar los haces de forma simultánea. Ya que la información de un ángulo está disponible en cada pulso recibido, la técnica de monopulso puede proveer una tasa de datos más alta que el \emph{sequential lobing}.  \par
+
+Idealmente, los radares de monopulso están libres de errores de fluctuaciones en la fuerza de los ecos, debido a que las fluctuaciones no tienen efecto en la proporción de las señales recibidas simultáneamente por los distintos lóbulos en cada pulso. En la práctica, debido a complicaciones de costo y diseño, estos errores no suelen ser totalmente eliminados, pero están bastante paleados. \par
+
+Las ventajas de la técnica de monopulso sobre otras técnicas de trackeo son obtenidas a costo de mayor complejidad (y costo) en el equipamiento. Por ejemplo, monopulso requiere múltiples receptores, mientras que otras técnicas secuenciales sólo requieren uno. Los receptores tienen que estar diseñados y alineados de manera muy cuidadosa. Para algunas aplicaciones, los sistemas más simples son adecuados. \par
+
+La mayoría de los radares de trackeo usados hoy dia son del tipo monopulso. A lo largo del mundo, miles de radares de monopulso se han construdio e instalado en tierra, océano, aviones y misiles guiados y en el espacio. Llevan a cabo una gran variedad de funciones, de las cuales se puede listar las más importantes:
+\begin{itemize}
+    \item Control táctico de disparos y lanzamiento y guía de misiles
+    \item Aplicaciones militares estratégicas como trackear aviaciones o misiles potencialmente hostiles
+    \item Aplicaciones espaciales, como trackeo de vehículos espaciales, satélites u otros objetos
+    \item Aplicaciones de inteligencia, que incluyen análisis no solo de trayectoria si no de tamaño, forma, rotación y otras características de los objetivos
+\end{itemize}
+
+\section{Un radar de monopulso base}
+
+A continuación se presenta un ejemplo clásico de un radar de monopulso. Si bien este ejemplo difiera de las distintas maneras de configurar un radar de monopulso, las ideas principales se mantienen. \par
+
+El radar que servirá de modelo tiene una antena de reflector paraboidal alimentada por un \emph{cluster} de cuatro cuernos en el plano focal, como se ve en la figura \ref{fig:antenna}. Los dos cuernos que se ven en la figura \ref{fig:antenna}(a) están vistos desde frente a quién observa, y los otros dos están del lado opuesto. Si el observador mira de manera axial desde el centro del reflector, los cuernos se ven como en la figura \ref{fig:antenna}(b). Estos cuatro cuernos generan cuatro haces, como se ve en la figura \ref{fig:four_lobes}. Notar que los cuernos de arriba producen los haces de abajo. Los haces son tales que si sus salidas son conectadas a cuatro receptores idénticos y separados, sus respuestas a una onda plana incidente serían todas en la misma fase pero generalmente van a diferir en amplitud de acuerdo a los patrones del haz y las direcciones de recepción de las ondas. El punto trasnversal común es en el eje del paraboide. Solo un objetivo en el eje simétrico de la antena daría amplitudes iguales en los cuatro haces. De las proporciones de las amplitudes se puede determinar las dos componentes angulares de la dirección del objetivo relativa a los ejes. Tres haces serían suficientes para determinar las dos componentes angulares de un objetivo, sin embargo, generalmente son usados cuatro haces debido a una cuestión de simetría. \par
+
+\begin{figure}[h]
+    \includegraphics[width=10cm]{gfx/03_5.4_0.png}
+    \caption{Reflector y \emph{feed horns}: (a) vista de costado y (b) vista axial de \emph{feed horns}}
+    \label{fig:antenna}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[width=10cm]{gfx/03_5.4_1.png}
+    \caption{Cuatro lóbulos en comparación simultánea}
+    \label{fig:four_lobes}
+\end{figure}
+
+Los haces se muestran de forma frontal en la figura \ref{fig:four_lobes_frontal}. Sean A, B, C y D representaciones de los correspondientes voltajes recibidos. En teoría, las salidas de los cuatro cuernos pueden estar conectadas a cuatro receptores idénticos, salidas de las cuales pueden compararse. En la práctica, los cuatro receptores, aún si están calibrados inicialmente para tener igual ganancia y fase, van a variar de manera distinta en función del tiempo, el nivel de la señal, la radiofrecuencia y las condiciones ambientales. El resultado sería grandes desviaciones en los ejes eléctricos y en las mediciones de los ángulos del objetivo. \par
+
+\begin{figure}[h]
+    \includegraphics[width=10cm]{gfx/03_5.4_2.png}
+    \caption{Vista frontal de los cuatro lóbulos}
+    \label{fig:four_lobes_frontal}
+\end{figure}
+
+El método usual, entonces, es formar la suma, una diferencia de elevación y una diferencia transversal de las salidas de los cuernos en radiofrecuencia, anterior a los receptores. Siendo eléctrica y mecánicamente compactos y rígidos, estos dispositivos tiene muchas menos desviaciones que los circuitos receptores activos. La suma y las diferencias son:
+
+\begin{center}
+    Suma \hspace{2.3cm}$s=\frac{1}{2}(A+B+C+D)$ \newline \newline
+    Dif. transversal \hspace{1cm}$d_{tr}=\frac{1}{2}[(C+D)-(A+B)]$ \newline \newline
+    Dif. de elevación \hspace{1cm}$d_{el}=\frac{1}{2}[(A+B)-(B+D)]$
+\end{center}
+
+El factor 1/2 en estas ecuaciones se debe a la igualdad de la potencia total de entrada y la potencia total de salida, asumiendo que no hay pérdidas. \par
+
+Las formas de los patrones de voltaje de la suma y de la diferencia se ven en la figura \ref{fig:formas} tanto para elevación como para el transverso. También se ven los patrones de voltaje \emph{v1} y \emph{v2} de los pares de haces, cuyas suma y diferencia son:
+
+\begin{center}
+    $v_1=\frac{C+D}{\sqrt{2}}$
+\end{center}
+    Para el transverso:
+\begin{center}
+    $v_2=\frac{A+D}{\sqrt{2}}$
+\end{center}
+\vspace{5cm}
+\begin{center}
+    $v_1=\frac{A+C}{\sqrt{2}}$
+\end{center}
+    Para elevación:
+\begin{center}
+    $v_2=\frac{B+D}{\sqrt{2}}$
+\end{center}
+
+La suma y la diferencia (en cada coordenada) se relacionan con \emph{v1} y \emph{v2} mediante las ecuaciones
+\begin{center}
+    $s=\frac{v_1+v_2}{\sqrt{2}}$
+\end{center}
+\begin{center}
+    $d=\frac{v_1-v_2}{\sqrt{2}}$ .
+\end{center}
+
+\begin{figure}[h]
+    \includegraphics[width=10cm]{gfx/03_5.4_3.png}
+    \caption{Comparación de amplitud de los patrones de monopulso en ambas coordenadas}
+    \label{fig:formas}
+\end{figure}
+
+La dirección espacial, en donde las diferencias de elevación y de transverso tienen sus nulos al mismo tiempo, es llamada eje de monopulso, eje de mira, eje de \emph{tracking} o eje eléctrico. Idealmente, coindice con el eje geométrico o mecánico del reflector, pero en la práctica suele haber una desviación. Para determinar cuál es el eje de monopulso, es necesario calibrar la antena, cuyo proceso consiste en moverapuntar la antena de tal manera que el resultado sea nulo mientras se apunta a un objetivo en una dirección conocida. El patrón de suma tiene un pico en el eje de monopulso, pudiendo diferir levemente. \par
+
+La figura \ref{fig:functional_diagram} es un diagrama funcional que incluye, de manera simplificada, los pasos del procesamiento descriptos hasta ahora y aquellos que faltan.
+
+\begin{figure}[h]
+    \includegraphics[width=10cm]{gfx/03_5.4_4.png}
+    \caption{Diagrama funcional del radar de monopulso}
+    \label{fig:functional_diagram}
+\end{figure}
+
+El mismo canal que forma los patrones de suma en la recepción es también usado en la dirección contraria para transmisión. Así, el patrón de transmisión es el mismo que se ve en la figura \ref{fig:formas}. En la recepción, la señal de suma es usada para detección, obtención de rango y \emph{display}, además de su función de monopulso. \par
+
+En los receptores de los canales de suma y diferencia los voltajes de radiofrecuencia (RF), provenientes de la red combinadora de microondas, son convertidos a voltajes de frecuencia intermedia (IF) al mezclarse con la salida de un oscilador local, amplificando y filtrando en IF. El ancho de banda del filtro es aproximadamente el recíproco al ancho de pulso del radar. \par
+
+Por cada coordinada hay un procesador de monopulso, pudiendo este tomar distintas formas. La funcionalidad comúm entre procesadores de monopulso es que todos responden a diferencias de voltaje, diferencias de fase o a ambas, pero nunca a fases o voltajes absolutos. \par
+
+En nuestro radar de monopulso base, las dos entradas de cada procesador son la señal de suma y la señal de diferencia para una coordenada. La salida es la proporción entre la amplitud de voltaje de la suma y de la diferencia, multiplicada por el coseno de la fase angular relativa entre los dos voltajes. La fase relativa se denota como $\delta_{tr}$ en transverso y $\delta_{el}$ en elevación. En nuestro modelo ideal, estas dos señales siempre tienen 0° o 180° de fase relativa, ya que están derivadas de cuatro haces individuales cuyas salidas, se asume, tienen la misma fase. Por lo tanto, el coseno es +1 si el objetivo está a un lado del eje y -1 si está en el otro lado del eje. \par
+
+La proporción de amplitud indica cuán lejos del eje está el objetivo y el factor de coseno indica el sentido (izquierda o derecha del eje, arriba o abajo del eje). El factor de coseno también sirve para rechazar la componente de fase de cuadratura del ruido, reduciendo errores provenientes del mismo. \par
+
+La salida en cada coordenada, consistiendo de una proporción de amplitud de voltaje multiplicada por el coseno de la fase relativa, es comunmente llamada la señal de <<error>> en esa coordenada, pero se evita este nombre ya que una señal de <<error>> no es necesariamente asociada a un error cuando se determina el ángulo de un objetivo. Un nombre más descriptivo es la señal de diferencia normalizada, o, más específico, the componente en fase de la señal de diferencia normalizada. Una manera más general de llamar a la salida es simplemente "salida del procesador de monopulso", que incluye no solo el tipo de salida producida por el radar base si no tambien por otros tipos de procesadores de monopulso. \par
+
+Este modelo de radar base es un radar dirigido mecánicamente. La salida del procesador de monopulso, luego de una transformación de coordenada, se convierte en la entrada de los canales de los servoamplificadores, y los servos hacen girar la antena en la dirección correspondiente hasta que se encuentre un nulo en la salida del procesador de monopulso. La razón de la transformación de coordenada es que las coordenadas de rotación mecánica de la antena son, típicamente, azimuth y elevación mientras que las señales de diferencias son funciones de la elevación y del transverso del objetivo, relativos al eje de la antena. Con una simple transformación aproximada es suficiente. Esto consiste en multiplicar la salida del monopulso transversal por la secante del ángulo de elevación de la antena para manejar el servo del azimuth, y usando la salida del monopulso de elevación sin transformación para manejar el servo de elevación. \par
+
+Idealmente el eje de la antena sigue la dirección del objetivo de manera exacta, pero en la práctica existen desviaciones. Mientras el servo hace lo posible por mantener el eje apuntando al objetivo, siempre existen pequeños retardos. El retardo puede ser causado por aceleraciones del objetivo por encima de la capacidad del servo. El viento también puede generar desviaciones del eje en relación al objetivo. En ambos casos (desviaciones por viento o retardos) hay un voltaje residual en la salida del procesador de monopulso, el cual el servo no puede ignorar. El error resultante se puede remover mediante una funcionalidad opcional llamada \emph{señal corrección de error} o \emph{señal de corrección eléctrica}. El residuo de la salida del procesador de monopulso que el servo no puede hacer nula is medida y convertida al correspondiente ángulo de desvío del eje mediante una función de calibración conocida. El ángulo de desvío del eje, sumado al ángulo de rotación del eje del pedestal, da un valor corregido del ángulo del objetivo.
+
+\section{Ventajas y desventajas del monopulso}
+
+Las ventajas de la técnica de monopulso por sobre el \emph{sequential lobing}, varias de las cuales ya han sido nombradas, se enumeran aquí.
+
+\begin{enumerate}
+    \item El error debido a fluctuaciones de amplitud de los ecos es eliminado o mayormente disminuído.
+    \item En los radares de monopulso, la información angular está disponible en cada pulso en vez de en un ciclo completo de pulsos. Esta ventaja no es siempre utilizada en \emph{trackeo} el contínuo de un objeto, ya que usualmente las señales se van integrando a medida que se reciben varios pulsos. Aún asi, esta capacidad incrementa la tasa de datos disponible y permite el uso de un ancho de banda mayor.
+    \item Debido a que el haz de suma, tanto en transmisión como en recepción, apunta al objetivo y no al costado del mismo, la tasa señal/ruido es mayor en la técnica de monopulso, asumiendo que los demás radares tienen los mismos parámetros. Esto resulta en una mejor capacidad de detección y menos error de \emph{trackeo} debido a ruido térmico.
+    \item Los radares de monopulso no tienen vibraciones mecánicas ni desgaste por rotaciones (como en el caso del escaneo cónico), por lo que se tiene una mayor estabilidad en el eje de la mira.
+    \item La transmisión en el \emph{sequential lobing} revela la presencia y periodicidad del escaneo y esto hace que la información del radar se vulnere. La transmisión del monopulso no está modulada.
+    \item En ciertas aplicaciones, la información sobre la orientación de un objetivo que está siendo \emph{trackeado} se deriva del análisis de las fluctuaciones de amplitud pulso a pulso del eco. Esto es muy difícil o hasta imposible en la técnica de \emph{sequential lobing} debido a la modulación impuesta por el escaneo y el \emph{lobe switching}. En el monopulso, la señal de suma se puede usar para este propósito ya que no está modulada.
+    \item El rango de \emph{trackeo} en el escaneo cónico está limitado por la tasa de escaneo. Esto es debido a que la dirección del haz no se puede mover demasiado entre transmisión y recepción. El monopulso no tiene esta restricción; el rango máximo está limitado solo por la frecuencia de repetición del pulso.
+\end{enumerate}
+
+La principal desventaja del monopulso es que, en el deseo de alcanzar esta capacidad superior, se necesita mayor equipamiento y un diseño mucho más cuidadoso. Es, por lo tanto, más costoso. \par
+
+El monopulso convencional requiere de tres canales de recepción para un \emph{trackeo} angular de dos coordenadas, comparado con el único canal receptor del \emph{sequential lobing}. Existen configuraciones de monopulso que usan menos de tres canales pero a sacrificando \emph{performance} o teniendo dificultades en el diseño. \par
+
+La circuitería de RF es mucho más compleja en el monopulso, ya que la señal de suma y las dos señales de diferencia tienen que <<bajar>> desde la antena. Los canales de RF tienen que mantenerse balanceados para prevenir errores. \par
+
+Hay factores adicionales que, si bien no están directamente atribuidos al uso del monopulso, incrementan el costo del sistema monopulso. Por ejemplo, un pedestal y un sistema controlador que es adecuado para un escaneo cónico debería ser reemplazado por un pedestal y controlador con mayor \emph{performance} y costo, con el fin de no limitar la puntería y \emph{performance} dinámica del monopulso. \par
+
+\section{Otros usos de la técnica de monopulso}
+
+Si bien aquí se hace énfasis al monopulso usado para radar, las mismas (o análogas) técnicas pueden ser usadas con otras intenciones. Otras aplicaciones de RF incluyen \emph{passive direction-finding}, comunicaciones, radio astronomía, y guía de misiles. El principio del monopulso es también usado en \emph{sonar} activo y/o pasivo, y en algunos \emph{trackeadores} ópticos. \par
+
+\begin{thebibliography}{9}
+\bibitem{texbook}
+Samuel M. Sherman - David K. Barton (2011) \emph{Monopulse Principles and Techniques}, Second Edition
+\end{thebibliography}
 %----------------------------------------------------------------------------------------
 
 \chapter{Procesamiento de señales}
