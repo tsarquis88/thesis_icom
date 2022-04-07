@@ -47,7 +47,7 @@ En 2008 comienzo el proceso de recuperación a partir de financiamiento PIDDEF d
 
 \section{Introducción}
 
-Monopulso (también conocido como "comparación simultánea de lóbulos"), es una técnica para medir la dirección de radiación que se recibe. La radiación puede provenir de una fuente activa, como lo es una antena transmisora, o de una fuenta pasiva, es decir, objetos que re-irradian energía que incide en ellos.
+Monopulso (también conocido como <<comparación simultánea de lóbulos>>), es una técnica para medir la dirección de radiación que se recibe. La radiación puede provenir de una fuente activa, como lo es una antena transmisora, o de una fuenta pasiva, es decir, objetos que re-irradian energía que incide en ellos.
 
 \section{Principios de radar}
 
@@ -64,7 +64,7 @@ Cualquier desviación del objetivo del eje del haz produce una señal de correcc
 Un radar de trayectografía además \emph{trackea} en rango, manteniendo una puerta de rango (tiempo) centrada en el objetivo. Solo las señales recibidas durante esa puerta son aceptadas para el \emph{trackeo}. El intérvalo de tiempo entre los centros del pulso transmitido y la puerta de rango resulta en la medición de rango. Desviaciones del \emph{echo} del objetivo en relación al centro de la puerta de rango producen una señal de corrección, que tiende a mantener la puerta de rango centrada en el objetivo.
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/03_5.3_0.png}
+    \includegraphics[width=10cm]{gfx/02_5.3_0.png}
     \caption{Lóbulos en elevación}
     \label{fig:lobes}
 \end{figure}
@@ -74,7 +74,7 @@ En los primeros años en la historia del radar, una técnica para \emph{trackeo}
 La misma operación puede hacerse en ambas coordenadas angulares. Además, se pueden combinar, permitiendo un \emph{trackeo} angular completo, requiriendo cuatro posiciones de haz, como muestra la figura \ref{fig:beams}(a). El haz puede ser movido electrónicamente o por rotaciones mecánicas entre los ejes. Si el movimiento es mecánico, es preferible moverlo de forma contínua y de manera circular, resultando en un escaneo cónico. El \emph{lobe switching} y el escaneo cónico se pueden combinar: aunque el movimiento del haz es contínuo en el escaneo cónico, el objetivo es iluminado solo cuando es alcanzado por un pulso transmitido, como muestra la figura \ref{fig:beams}(b). Si la tasa de escaneo es 30 ciclos por segundo (valor típico), y la tasa de repetición del pulso tiene un valor ilustrativo de 240 pulsos por segundo, entonces hay 8 posiciones de haz por escaneada.
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/03_5.3_1.png}
+    \includegraphics[width=10cm]{gfx/02_5.3_1.png}
     \caption{Tipos de posicionamientos secuenciales de los haces}
     \label{fig:beams}
 \end{figure}
@@ -106,13 +106,13 @@ A continuación se presenta un ejemplo clásico de un radar de monopulso. Si bie
 El radar que servirá de modelo tiene una antena de reflector paraboidal alimentada por un \emph{cluster} de cuatro cuernos en el plano focal, como se ve en la figura \ref{fig:antenna}. Los dos cuernos que se ven en la figura \ref{fig:antenna}(a) están vistos desde frente a quién observa, y los otros dos están del lado opuesto. Si el observador mira de manera axial desde el centro del reflector, los cuernos se ven como en la figura \ref{fig:antenna}(b). Estos cuatro cuernos generan cuatro haces, como se ve en la figura \ref{fig:four_lobes}. Notar que los cuernos de arriba producen los haces de abajo. Los haces son tales que si sus salidas son conectadas a cuatro receptores idénticos y separados, sus respuestas a una onda plana incidente serían todas en la misma fase pero generalmente van a diferir en amplitud de acuerdo a los patrones del haz y las direcciones de recepción de las ondas. El punto trasnversal común es en el eje del paraboide. Solo un objetivo en el eje simétrico de la antena daría amplitudes iguales en los cuatro haces. De las proporciones de las amplitudes se puede determinar las dos componentes angulares de la dirección del objetivo relativa a los ejes. Tres haces serían suficientes para determinar las dos componentes angulares de un objetivo, sin embargo, generalmente son usados cuatro haces debido a una cuestión de simetría. \par
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/03_5.4_0.png}
+    \includegraphics[width=10cm]{gfx/02_5.4_0.png}
     \caption{Reflector y \emph{feed horns}: (a) vista de costado y (b) vista axial de \emph{feed horns}}
     \label{fig:antenna}
 \end{figure}
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/03_5.4_1.png}
+    \includegraphics[width=10cm]{gfx/02_5.4_1.png}
     \caption{Cuatro lóbulos en comparación simultánea}
     \label{fig:four_lobes}
 \end{figure}
@@ -120,7 +120,7 @@ El radar que servirá de modelo tiene una antena de reflector paraboidal aliment
 Los haces se muestran de forma frontal en la figura \ref{fig:four_lobes_frontal}. Sean A, B, C y D representaciones de los correspondientes voltajes recibidos. En teoría, las salidas de los cuatro cuernos pueden estar conectadas a cuatro receptores idénticos, salidas de las cuales pueden compararse. En la práctica, los cuatro receptores, aún si están calibrados inicialmente para tener igual ganancia y fase, van a variar de manera distinta en función del tiempo, el nivel de la señal, la radiofrecuencia y las condiciones ambientales. El resultado sería grandes desviaciones en los ejes eléctricos y en las mediciones de los ángulos del objetivo. \par
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/03_5.4_2.png}
+    \includegraphics[width=10cm]{gfx/02_5.4_2.png}
     \caption{Vista frontal de los cuatro lóbulos}
     \label{fig:four_lobes_frontal}
 \end{figure}
@@ -162,7 +162,7 @@ La suma y la diferencia (en cada coordenada) se relacionan con \emph{v1} y \emph
 \end{center}
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/03_5.4_3.png}
+    \includegraphics[width=10cm]{gfx/02_5.4_3.png}
     \caption{Comparación de amplitud de los patrones de monopulso en ambas coordenadas}
     \label{fig:formas}
 \end{figure}
@@ -172,7 +172,7 @@ La dirección espacial, en donde las diferencias de elevación y de transverso t
 La figura \ref{fig:functional_diagram} es un diagrama funcional que incluye, de manera simplificada, los pasos del procesamiento descriptos hasta ahora y aquellos que faltan.
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/03_5.4_4.png}
+    \includegraphics[width=10cm]{gfx/02_5.4_4.png}
     \caption{Diagrama funcional del radar de monopulso}
     \label{fig:functional_diagram}
 \end{figure}
@@ -227,7 +227,95 @@ Samuel M. Sherman - David K. Barton (2011) \emph{Monopulse Principles and Techni
 
 \chapter{Procesamiento de señales}
 
-\label{ch:dsp} % For referencing the chapter elsewhere, use \autoref{ch:introduction} 
+\label{ch:dsp}
+
+\section{Introducción}
+
+Una vez conocidas las señales en cuestión (vistas en el apartado \ref{ch:monopulse}), lo próximo es analizar de qué manera se van a procesar estas señales. \par
+
+Una solución común en estos casos es aplicar el \emph{teorema del muestreo}\footnote{\url{https://es.wikipedia.org/wiki/Teorema_de_muestreo_de_Nyquist-Shannon}}. El teorema demuestra que la reconstrucción exacta de una señal continua en banda base a partir de sus muestras, es matemáticamente posible si la señal está limitada en banda y la tasa de muestreo es superior al doble de su ancho de banda. Para nuestro caso, donde las señales del monopulso son de frecuencias intermedias (IF), es decir, de aproximadamente 30 MHz, se debería muestrar a más de 60 MHz. De esta manera, uno podría reconstruir las señales de manera exacta, a costo de aumentar el consumo del dispositivo que hará el procesamiento. \par
+
+Ahora bien, para los fines que este proyecto tiene, de las señales sólo se necesita conocer su amplitud y la fase relativa entre la señal de referencia y la señal de error (para cada coordenada), y para esto no es necesaria la reconstrucción exacta. Por lo tanto, se elige otro camino para encarar el procesamiento de señales. 
+
+\section{Undersampling}
+El método elegido es el de \emph{undersampling}. Esta técnica consiste en muestrear la señal por debajo de la frecuencia de \emph{Nyquist} (es decir, por debajo del doble del ancho de banda de la señal). Esto conlleva a que, como se dijo anteriormente, la señal no sea reconstruible y el resultado del muestreo sea un \emph{aliasing} de la señal original.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/02_6.2_0.png}
+    \caption{Ejemplo del \emph{aliasing}. En rojo la señal original y en azul el resultado si se muestrea por debajo de la frecuencia de Nyquist}
+    \label{fig:aliasing_example}
+\end{figure}
+
+El \emph{aliasing} podría ser problemático. Si se hace un análisis en el espectro de la frecuencia, el \emph{aliasing} resulta en una señal corrida hacia banda base en relación a la original, es decir, la señal resultante tiene una componente en frecuencia menor a la que posee la original. Si se la analiza en el espectro del tiempo, se puede ver que pueden haber diferencias de fase y amplitud en relación a la señal original. \par
+
+Debido a que no nos interesa reconstruir la señal y/o conocer cuál es su ancho de banda, se puede prescindir del problema de corrimiento en frecuencia. Lo que si es imperioso, como se dijo anteriormente, es conocer la fase relativa y la amplitud de las señales, y el aliasing hace que esto se vuelva más complicado que si se aplicara el sobremuestreo (teorema del muestreo). \par
+
+Sin embargo, aplicando ciertas técnicas, uno podría minimizar las diferencias de amplitud y fase que hay entre la señal original y la muestreada. 
+
+\section{Técnica para aplicar undersampling}
+
+Se va a explicar el procedimiento para aplicar \emph{undersampling} de la manera correcta y con un ejemplo en el cual se muestrea una señal de 70 MHz con un ancho de banda de 20 MHz (la frecuencia de la señal varía entre 60 MHz y 80 MHz). En muchos casos de aplicaciones de radar, el valor de 70 MHz como frecuencia IF es común, con un ancho de banda que varía entre algunos KHz a unos pocos MHz. \par
+
+La componente máxima de frecuencia en esta señal es de 80 MHz. Para un caso de sobremuestreo, la tasa de muestreo debe ser mayor a 160 MSPS. Para mantener esta banda, que va desde 60 MHz a 80 MHz, en la primera zona de Nyquist, la frecuencia de muestreo debe ser 280 MSPS. Este caso se muestra en la imágen \ref{fig:undersampling0}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/02_6.3_0.png}
+    \caption{Caso de muestreo normal (Sobremuestreo): Frecuencia IF en el centro de la zona Nyquist}
+    \label{fig:undersampling0}
+\end{figure}
+
+Siendo $F_s$ la frecuencia de muestreo tenemos que, cada $F_s/2$ y empezando desde DC hasta $F_s/2$, se definen las zonas de Nyquist. La primera zona de Nyquist va desde DC hasta $F_s/2$, la segunda zona de Nyquist va desde $F_s/2$ a $F_s$, la tercera zona de Nyquist va desde $F_s$ a $3F_s/2$, y asi sucesivamente. \par
+
+Para bajar la tasa de muestreo en el caso de sobremuestreo, aún si no es necesario que el ancho de banda de la señal esté en el centro de la primera zona de Nyquist, se podría elegir una tasa de muestro cercana a 200 MSPS (y no 160 MSPS) para una aplicación práctica. Esto se ve en la figura \ref{fig:undersampling1}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/02_6.3_1.png}
+    \caption{Caso práctico de muestreo (Sobremuestreo)}
+    \label{fig:undersampling1}
+\end{figure}
+
+La misma señal puede ser muestreada a más de 40 MSPS, por ejemplo, a 56 MSPS para mantener la señal en el centro de la tercera zona de Nyquist usando la técnica de \emph{undersampling}. Esto se observa en la figura \ref{fig:undersampling2}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/02_6.3_2.png}
+    \caption{Caso de \emph{undersampling} de señal de 70 MHz con un ancho de banda de 20 MHz}
+    \label{fig:undersampling2}
+\end{figure}
+
+Como se ve en la figura \ref{fig:undersampling2}, la señal IF de 70 MHz en la tercera zona de Nyquist es llevada (o \emph{aliased back}) a la primera zona de Nyquist centrada en 14 MHz y con una tasa de \emph{undersampling} de 56 MSPS. Este proceso de llevar una señal a banda base puede ser llevado a cabo por un DDC (\emph{digital down-converter}). Una FPGA podría implementar esta funcionalidad. Sin embargo, muchos diseños de radiofrecuencia usan la técnica de \emph{undersampling}, aprovechando las ventajas de la misma y asi ganar espacio en las placas, potencia y dinero. \par
+
+El espectro de la señal no se ve invertido en este caso. Ninguna señal se invierte cuando se encuentra en una zona de Nyquist impar como la tercera, la quinta, y asi. No sucede lo mismo si la zona de Nyquist es par, ya que en estos casos el espectro si se ve invertido. Esta inversión, generalmente, no es algo malo o una desventaja, ya que es muy sencillo volver a invertir el espectro de la señal, aunque en algunos casos si puede llegar a provocar serios problemas. \par
+
+Una técnica que puede ser útil para visualizar la relación entre las zonas de Nyquist y la inversión espectral es la técnica de \emph{paper fan-fold}. Esta técnica consiste en imprimir la gráfica del espectro de nuestra señal en un papel transparente, doblando el mismo en forma de acordeón, haciendo los pliegues en los límites entre una zona de Nyquist y otra, como se ve en la figura \ref{fig:fan_fold0}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/02_6.3_3.png}
+    \caption{Papel plegado como indica el método de \emph{paper fan-fold}}
+    \label{fig:fan_fold0}
+\end{figure}
+
+Si hacemos colapsar el papel de tal manera que se vea todo el espectro en una sola cara cuadrada, se verían todas las amplitudes del espectro de cada zona de Nyquist, superpuestas. Además, se puede notar que aquellas componentes que se encuentran en las zonas de Nyquist pares se ven invertidas. Lo anterior se puede ver en la figura \ref{fig:fan_fold1}, y es la representación del resultado de hacer \emph{undersampling}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5cm]{gfx/02_6.3_4.png}
+    \caption{Resultado del método de \emph{paper fan-fold}}
+    \label{fig:fan_fold1}
+\end{figure}
+
+Hay que asegurarse que el total del ancho de banda de la señal esté contenido en una zona de Nyquist y no entre dos zonas. Si esto último sucede, se dice que se tiene un mal \emph{aliasing}, y la componente llevada a la primera zona de Nyquist no podría ser obtenida por ningun DDC.
+
+\begin{thebibliography}{9}
+\bibitem{texbook}
+Purnachandar Poshala (2013) \emph{Why Oversample when Undersampling can do the Job?} 
+\bibitem{texbook}
+Rodger H. Hosking, Pentek (2006) \emph{How to use undersampling}
+\end{thebibliography}
 
 %----------------------------------------------------------------------------------------
 
