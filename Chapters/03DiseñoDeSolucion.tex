@@ -1,56 +1,266 @@
-% Chapter 3
+\chapter{Diseño del nuevo sistema}
+\label{ch:diseñosistema}
 
-\chapter{Math Test Chapter} % Chapter title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\label{ch:mathtest} % For referencing the chapter elsewhere, use \autoref{ch:mathtest}
+\section{Introducción}
 
-%----------------------------------------------------------------------------------------
+En la parte anterior del presente documento se explicó en detalle cuáles son las tecnologías, materiales e inmateriales, con las cuales este proyecto va a relacionarse. Es necesario, entonces, crear un sistema que cumpla con los siguiente requerimientos: 
 
-\lipsum[13]
+\begin{itemize}
+    \item Adquisición y conversión digital de 4 señales de manera paralela \footnote{Hay dos coordenadas angulares (elevación y acimut) y cada una viene en forma de dos señales (referencia y error). A eso se deben las cuatro señales.}
+    \item Aplicación de la técnica de \emph{undersampling} a las 4 señales convertidas, aprovechando el \emph{aliasing}
+    \item Filtrado del aliasing. Eliminación de componentes de alta frecuencia
+    \item Procesamiento paralelo de señales. Obtención de las amplitudes y las fases relativas en cada coordenada
+\end{itemize}
 
-%----------------------------------------------------------------------------------------
+En esta parte del documento se detalla el diseño del sistema que cumple con los requerimientos del proyecto.
 
-\section{Some Formulas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Due to the statistical nature of ionisation energy loss, large fluctuations can occur in the amount of energy deposited by a particle traversing an absorber element\footnote{Examples taken from Walter Schmidt's great gallery: \\ \url{http://home.vrweb.de/~was/mathfonts.html}}.  Continuous processes such as multiple scattering and energy loss play a relevant role in the longitudinal and lateral development of electromagnetic and hadronic showers, and in the case of sampling calorimeters the measured resolution can be significantly affected by such fluctuations in their active layers.  The description of ionisation fluctuations is characterised by the significance parameter $\kappa$, which is proportional to the ratio of mean energy loss to the maximum allowed energy transfer in a single collision with an atomic electron: \graffito{You might get unexpected results using math in chapter or section heads. Consider the \texttt{pdfspacing} option.}
-\begin{equation}
-\kappa =\frac{\xi}{E_{\mathrm{max}}} %\mathbb{ZNR}
-\end{equation}
-$E_{\mathrm{max}}$ is the maximum transferable energy in a single collision with an atomic electron.
-\[E_{\mathrm{max}} =\frac{2 m_{\mathrm{e}} \beta^2\gamma^2 }{1 + 2\gamma m_{\mathrm{e}}/m_{\mathrm{x}} + \left ( m_{\mathrm{e}} /m_{\mathrm{x}}\right)^2}\ ,\]
-where $\gamma = E/m_{\mathrm{x}}$, $E$ is energy and $m_{\mathrm{x}}$ the mass of the incident particle, $\beta^2 = 1 - 1/\gamma^2$ and $m_{\mathrm{e}}$ is the electron mass. $\xi$ comes from the Rutherford scattering cross section and is defined as:
-\begin{eqnarray*} \xi  = \frac{2\pi z^2 e^4 N_{\mathrm{Av}} Z \rho
-\delta x}{m_{\mathrm{e}} \beta^2 c^2 A} =  153.4 \frac{z^2}{\beta^2}
-\frac{Z}{A}
-\rho \delta x \quad\mathrm{keV},
-\end{eqnarray*}
-where
+\section{Hardware}
 
-\begin{tabular}{ll}
-$z$ & charge of the incident particle \\
-$N_{\mathrm{Av}}$ & Avogadro's number \\
-$Z$ & atomic number of the material \\
-$A$ & atomic weight of the material \\
-$\rho$ & density \\
-$ \delta x$ & thickness of the material \\
-\end{tabular}
+La FPGA elegida para llevar a cabo el proyecto es la que viene en la placa de desarrollo Eclypse Z7 de Digilent, la cual es ideal para hacer prototipos de sistemas. Las \emph{features} más relevantes son:
 
-$\kappa$ measures the contribution of the collisions with energy transfer close to $E_{\mathrm{max}}$.  For a given absorber, $\kappa$ tends towards large values if $\delta x$ is large and/or if $\beta$ is small.  Likewise, $\kappa$ tends towards zero if $\delta x $ is small and/or if $\beta$ approaches $1$.
+\begin{itemize}
+    \item Procesador de doble núcleo (667 MHz) Cortex-A9 con FPGA de Xilinx integrada (no utilizado)
+    \item 2 interfaces SYZYGY para transferencia de datos de alta velocidad
+    \item 2 conectores PMOD
+    \item 1 GB DDR3L con bus de 32 bits
+    \item Conectividad por USB y Ethernet
+    \item Programable desde JTAG, flash Quad-SPI, y/o tarjeta microSD
+\end{itemize}
 
-The value of $\kappa$ distinguishes two regimes which occur in the description of ionisation fluctuations:
+La placa anterior, a través de sus conectores SYZYGY, se comunica con el par de conversores analógicos a digital ADC1410 de Digilent, de los cuales recibe las muestras de las señales de entrada. \par
 
-\begin{enumerate}
-\item A large number of collisions involving the loss of all or most of the incident particle energy during the traversal of an absorber.
+Además, se hace uso de un conversor digital a analógico (DAC1411 de Digilent) con fines de desarrollo.
 
-As the total energy transfer is composed of a multitude of small energy losses, we can apply the central limit theorem and describe the fluctuations by a Gaussian distribution. This case is applicable to non-relativistic particles and is described by the inequality $\kappa > 10 $ (\ie, when the mean energy loss in the absorber is greater than the maximum energy transfer in a single collision).
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{gfx/9.2_0.png}
+    \caption{Placa de desarrollo Eclypse Z7}
+    \label{fig:eclypse}
+\end{figure}
 
-\item Particles traversing thin counters and incident electrons under any conditions.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{gfx/9.2_1.png}
+    \caption{ADC1410 de Digilent}
+    \label{fig:adc1410}
+\end{figure}
 
-The relevant inequalities and distributions are $ 0.01 < \kappa < 10 $, Vavilov distribution, and $\kappa < 0.01 $, Landau distribution.
-\end{enumerate}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{gfx/9.2_2.png}
+    \caption{DAC1411 de Digilent}
+    \label{fig:dac1411}
+\end{figure}
 
-%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{gfx/9.2_3.png}
+    \caption{Placa de desarrollo Eclypse Z7 con dos conversores conectados}
+    \label{fig:eclypse2}
+\end{figure}
 
-\section{Various Mathematical Examples}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-If $n > 2$, the identity \[t[u_1,\dots,u_n] = t\bigl[t[u_1,\dots,u_{n_1}], t[u_2,\dots,u_n] \bigr]\] defines $t[u_1,\dots,u_n]$ recursively, and it can be shown that the alternative definition \[t[u_1,\dots,u_n] = t\bigl[t[u_1,u_2],\dots,t[u_{n-1},u_n]\bigr]\] gives the same result.
+\section{Diagrama simplificado}
+
+Anteriormente se dijo que el lenguaje de descripción de \emph{hardware} utlizado para el proyecto sería \emph{Verilog}, y que el mismo consistía en la descripción de módulos que realizan tareas específicas. En la Figura \ref{fig:modulos} se muestra el diseño (simplificado) descrito en dicho lenguaje. Al final de este documento, en el anexo del mismo, se encuentran porciones del código fuente. \par
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=11cm]{gfx/9.3_0.png}
+    \caption{Módulos del diseño}
+    \label{fig:modulos}
+\end{figure}
+
+A continuación se entra en detalle acerca de cada parte del diagrama.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Entradas}
+
+Se considera que el sistema diagramado va a procesar solamente una coordenada angular (elevación, por ejemplo), por lo que las entradas del sistema son dos señales: la señal de referencia y la señal de error asociadas a una coordenada angular. Esta consideración se lleva a cabo solamente por fines de simpleza ya que el sistema en producción necesita hacer un procesamiento paralelo en dos coordenadas angulares: elevación y acimut. \par
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Conversor analógico a digital}
+
+Las señales analógicas que ingresan al sistema son convertidas rápidamente a su forma digital para ser asi mejor procesadas por la FPGA. La conversión realizada se hace con el conversor ADC1410 de Digilent, cuyo diagrama interno se puede ver en la Figura \ref{fig:zmod_scope_diagram}. \par
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{gfx/9.3.2_0.png}
+    \caption{Diagrama de bloques del ZMOD ADC}
+    \label{fig:zmod_scope_diagram}
+\end{figure}
+
+Los fabricantes proveen un controlador de alto nivel para poder interactuar directamente con el ZMOD de manera segura y sencilla. Este se puede instanciar en nuestro diseño para poder obtener las muestras que necesitamos, y su estructura se puede ver en al Figura \ref{fig:adc_controller_diagram}. \par
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{gfx/9.3.2_1.png}
+    \caption{Diagrama de bloques del controlador del ADC1410}
+    \label{fig:adc_controller_diagram}
+\end{figure}
+
+Las funcionalidades principales se pueden dividir en la generación del clock de las entradas del ADC, captura de datos, calibración del ADC, configuración del ADC y configuración de los relés. \par
+
+Un dato muy importante es que la tasa de muestreo del ADC es fija y su valor es de 100 MSPS, por lo que bien se podría aplicar sobremuestreo. Sin embargo, como se explicó antes, estas muestras van a ser decimadas para poder aplicar la técnica de \emph{undersampling}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Muestreador ADC (o decimador) - Undersampling}
+
+Los datos muestreados a 100 MSPS ingresan en este segundo módulo, el cual se encarga de decimar las muestras, es decir, ignorar algunas de tal manera que parezca que la tasa de muestreo es menor. Por ejemplo, si uno quisiera muestrear a 50 MSPS, pero la tasa de muestreo real es de 100 MSPS, se podría ignorar una de cada dos muestras, de tal manera que se tienen en cuenta solo la mitad de las mismas, lo cual sería similar a muestrear a 50 MSPS. \par
+
+Una desventaja de la decimación, es que solamente se pueden conseguir tasas de muestreo que sean cocientes de la misma. Las tasas de muestreo posibles (hasta 10 MSPS) se pueden ver en la tabla \ref{tab:tabla_decimacion}. \par
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{||c|c||} 
+        \hline
+        Muestras ignoradas & Tasa de muestreo equivalente [MSPS]\\ [0.5ex]
+        \hline\hline
+        0 & 100 \\
+        \hline
+        1 & 50 \\
+        \hline
+        2 & 33 \\
+        \hline
+        3 & 25 \\
+        \hline
+        4 & 20 \\
+        \hline
+        5 & 16 \\
+        \hline
+        6 & 14 \\
+        \hline
+        7 & 12 \\
+        \hline
+        8 & 11 \\
+        \hline
+        9 & 10 \\
+        \hline
+    \end{tabular}
+    \caption{Tasas de muestreo posibles en función de las muestras ignoradas}
+    \label{tab:tabla_decimacion}
+\end{table}
+
+En este punto es necesario definir la frecuencia de muestreo que se va a utilizar. Para esto, es necesario recurrir a la técnica de obtención de la tasa de \emph{undersampling}, explicada anteriormente. \par
+
+Para llegar a una frecuencia de muestreo correcta, se fue probando con distintos valores hasta ver cuál/es cumplen con los requisitos. Estos requisitos eran: 
+
+\begin{itemize}
+    \item La frecuencia debe ser menor al doble de la componente de frecuencia máxima presente en la señal.
+    \item El ancho de banda (centrado en la frecuencia de muestreo) tiene que entrar en una zona de Nyquist
+    \item Opcional: la zona de Nyquist debe ser impar para así evitar la inversión de la señal
+\end{itemize}
+
+Teniendo en cuenta que el ancho de banda de la señal es de aproximadamente 2 MHz, y la componente de frecuencia máxima es de 30 MHz, se llegó a una frecuencia de \emph{undersampling} igual a 23 MSPS. En la Figura \ref{fig:paperfold} se puede ver el análisis, siguiendo la técnica \emph{paper-fold}, y cumpliendo con los 3 requisitos definidos anteriormente. El resultado, <<colapsando>> el papel, se puede ver en la Figura \ref{fig:paperfold_col}. \par
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/9.3.3_0.png}
+    \caption{Análisis \emph{paper-fold} con $F_s=23 MSPS$, ploteando el espectro de una señal típica de monopulso. En las zonas de Nyquist que figuran vacías se considera que la amplitud del espectro es nula}
+    \label{fig:paperfold}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5cm]{gfx/9.3.3_1.png}
+    \caption{Espectro corrido a banda base como indica el método \emph{paper-fold}: colapsando el papel y superponiendo todas las capas del mismo. Esto se debería ver a la salida de un muestreador que aplica \emph{undersampling} a la señal original}
+    \label{fig:paperfold_col}
+\end{figure}
+
+Siguiendo la tabla \ref{tab:tabla_decimacion}, podemos ver que no es posible generar una tasa de muestreo de 23 MSPS partiendo de 100 MSPS, por lo que, previamente habiendo hecho simulaciones, se decide elegir la frecuencia más cercana posible: 25 MSPS. Una simulación del muestreo a esta tasa se puede ver en la Figura \ref{fig:sim_monopulso}. \par
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/9.3.3_2.png}
+    \caption{Comparación entre el \emph{aliasing} obtenido por el \emph{undersampling} y la señal de monopulso original (simulación)}
+    \label{fig:sim_monopulso}
+\end{figure}
+
+Analizando más en detalle la imágen \ref{fig:sim_monopulso}, podemos remarcar algunos puntos importantes:
+
+\begin{itemize}
+    \item Amplitud: La amplitud máxima del \emph{aliasing} es la misma que la amplitud máxima de la señal original. Es posible, entonces, obtener la amplitud máxima original a partir del \emph{aliasing}.
+    \item Fase: Se puede ver que ambas señales llegan a su valor máximo en el mismo instante de tiempo, y lo mismo sucede con sus valores mínimos y con el cruce por cero. De esto se deriva que la fase del \emph{aliasing} es la misma que la fase de la señal original, por lo que es posible conocer las fases relativas de las señales a partir del \emph{undersampling}.
+    \item Ancho de banda: Se ve como el ancho de banda, que está originalmente en $30\pm2 MHz$, se corre hacia banda base, más precisamente a $5.41\pm2 MHz$. En el caso ideal, en el cual se muestrea a 23 MSPS, se esperaba un corrimiento a $5.75 MHz$ (Figura \ref{fig:paperfold_col}), lo cual obviamente no se consigue debido a que no se logró esa tasa de muestreo.
+\end{itemize}
+
+A pesar de las diferencias entre la frecuencia de muestreo ideal y la frecuencia de muestreo obtenible más cercana, se procede a utilizar esta última. Más adelante se verá que, habiendo hecho pruebas reales, los resultados son positivos, como se puede anticipar con la simulación mostrada. \par
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Detección de fase}
+
+Uno de los procesamientos que se tiene que realizar sobre las señales muestreadas es conocer la fase relativa entre ellas. Como sabemos, las señales de monopulso (referencia y error) pueden tener dos fases relativas: 180º y 0º (en fase o completamente desfasadas). \par
+
+Debido a que hay solo dos casos posibles (y no una cantidad infinita de posibles fases relativas), el detector de fase se puede pensar de una manera muy simple. En la Figura \ref{fig:fase_comp} se ven los dos casos posibles. \par
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=11cm]{gfx/9.3.4_0.png}
+    \caption{Señales de monopulso en fase (arriba) y en desfase (abajo) (simulación). La señal de error (azul) se ve atenuada en relación a la señal de referencia (rojo)}
+    \label{fig:fase_comp}
+\end{figure}
+
+Si se presta atención a la Figura \ref{fig:fase_comp}, podemos ver que cuando las señales están en fase, la polaridad de la amplitud es la misma en cualquier instante del tiempo. Es decir, si tomamos una muestra en un determinado instante del tiempo, las muestras deben ser ambas positivas o ambas negativas. Por otro lado, cuando las señales están en desfasaje, sucede lo análogo: las polaridades, en un determinado instante del tiempo, son siempre distintas. Un caso particular es cuando ambas señales son nulas, en el cual no se puede distinguir si están o no en fase. \par
+
+Se puede definir, entonces, la regla que el detector de fase debe seguir para obtener una fase relativa correcta: Si la muestra de la señal de referencia tiene la misma polaridad que la muestra de la señal de error, se considera que las señales están en fase en ese instante de tiempo, de lo contrario no lo están. \par
+
+Lo anterior funciona bien en la teória, pero debido a que en la práctica las fases relativas no van a ser exactamente 180º ó 0º, es posible que la detección de fase varíe mucho mientras la fase real no lo hace. La solución propuesta es que el detector no tome una decisión en base a las muestras en un instante de tiempo, si no que se tenga en cuenta una porción de muestras consecutivas al momento de decidir. Para esto, primero se fija una cantidad \emph{N} de muestras requeridas para decidir la fase. Luego, se empieza a llevar una cuenta de las muestras tomadas que poseen la misma polaridad y una cuenta de las que poseen una polaridad distinta. Finalmente, cuando se llega a \emph{N} muestras tomadas, se toma una decisión acerca de la fase en función de qué contador es mayor. Si el contador de muestras con la misma polaridad es mayor, entonces se decide que las señales están en fase. Caso opuesto, se decide que no están en fase. \par
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Detección de amplitud}
+
+La detección de amplitud se realiza de una manera muy simple: se comparan \emph{M} muestras consecutivas, se elige la que tenga la mayor amplitud y ésta se considera la amplitud de la señal. Así, cada \emph{M} muestras, la salida de este módulo se actualiza. Evidentemente, el módulo se encarga de detectar en paralelo las amplitudes de las dos señales de entrada. \par
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Divisor}
+
+Como se dijo anteriormente, es necesario conocer la relación de amplitd que existe entre la señal de error y la señal de referencia. Las operaciones de punto flotante, como la división o la multiplicación, son muy complejas de hacer en una FPGA, por lo que se tiene que recurrir a un \emph{IP Core} (algo así como una librería para HDLs) específico para esta tarea. \par
+
+El \emph{Core}\cite{Divider} tiene como entradas al divisor (amplitud de la señal de referencia) y al dividendo (amplitud de la señal de error), mientras que, como salida, existen dos posibilidades: cociente y resto, ambas en formato entero, o cociente entero y fraccional en formato decimal punto fijo. En este caso, se opta por elegir la segunda posibilidad, ya que el fraccional parece ser una magnitud mucho más adecuada que el resto para medir la proporción entre las dos señales. \par
+
+En la Figura \ref{fig:divider_pinout} se ve el \emph{pinout} del módulo, mientras que en la Figura \ref{fig:divider_output} se muestra el formato del resultado de la división. En el anexo del documento se puede ver el código fuente que instancia este módulo.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{gfx/divider_pinout.png}
+    \caption{\emph{Pinout} del \emph{Code} divisor}
+    \label{fig:divider_pinout}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/divider_output.png}
+    \caption{Formato del resultado de la división. En este proyecto se utiliza la opción con fraccional}
+    \label{fig:divider_output}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Salidas}
+
+Las salidas del sistema son dos: la salida del módulo divisor y el signo del coseno de la fase entre las señales. El último sirve para indicarle al controlador del servomotor hacia dónde hace falta mover el pedestal para ajustar la mira, mientras que la salida del divisor, que representa la relación que hay entra las señales de error y referencia, indica cuánto hay que moverse. \par
+
+Estas salidas, como se ve en el diagrama de la Figura \ref{fig:modulos}, van en paralelo. \par
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

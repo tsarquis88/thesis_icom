@@ -8,7 +8,8 @@
 
 El presente proyecto se lleva a cabo en la Fuerza Aérea Argentina (FAA) de Córdoba (Argentina), más específicamente en el CIA (Centro de Investigaciones Aplicadas) en el marco del programa de becas PIDEFF del Ministerio de Defensa. \par
 El CIA cuenta, desde la década del 80, con el radar de trayectografía Vitro RIR-778C, del cual se hablará más adelante. El proyecto consiste en continuar con el trabajo que se viene haciendo sobre el radar, llevando a cabo, asi, la modernización del mismo. \par
-Para ser más específico, en este proyecto se encara la mejora del módulo IAGC (\emph{Instant Automatic Gain Control}, el cuál se encarga de hacer el procesamiento de señales de monopulso. \par
+El procesamiento de señales del radar de trayectografía \emph{Vitro RIR-778C} es efectivo, pero su tecnología anticuada hace que muchos de sus módulos analógicos sean muy complicados de calibrar. Estudiando y llevando a cabo el reemplazo de ciertos módulos del radar, se mejorarán las prestaciones del mismo y se evitara así la tarea engorrosa de la calibración. Si esto se despliega en todos los módulos del radar, se llegaría a tener un equipo competente, mejorable y con un mejor mantenimiento. \par
+Para ser más específico, en este proyecto se encara la mejora del módulo IAGC (\emph{Instantaneous Automatic Gain Control}, el cuál se encarga de hacer el procesamiento de señales de monopulso. \par
 La tecnología que se usará para realizar dicha modernización será la FPGA.
 
 %----------------------------------------------------------------------------------------
@@ -30,14 +31,16 @@ Por otro lado, y debido a que el tesista realizó este proyecto en el marco de u
 \section{Principales}
 
 \begin{itemize}
-    \item Llevar a cabo la modernización del módulo IAGC del radar Vitro RIR-778C o, al menos, completar este proceso en un 60\%.
+    \item Digitalizar las señales de IF del radar.
+    \item Procesar estas señales para obtener informacion del sistema monopulso.
 \end{itemize}
 
 \section{Secundarios}
 
 \begin{itemize}
+    \item Aprender el funcionamiento de un sistema de radar.
+    \item Aplicar técnicas modernas de procesamiento digital de señales al procesamiento de datos de radar.
     \item Ver el resultado de este trabajo funcionando correctamente en producción.
-    \item Plantear cuáles son los siguientes pasos para la continuar con las mejoras del sistema.
 \end{itemize}
 
 %----------------------------------------------------------------------------------------

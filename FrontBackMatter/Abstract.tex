@@ -1,13 +1,6 @@
 % Abstract
 
 %\renewcommand{\abstractname}{Abstract} % Uncomment to change the name of the abstract
- 
-% I try to have four sentences in my abstract. 
-% The first states the problem. 
-% The second states why the problem is a problem. 
-% The third is my startling sentence. 
-% The fourth states the implication of my startling sentence. 
-% Example: The rejection rate for OOPSLA papers in near 90%. Most papers are rejected not because of a lack of good ideas, but because they are poorly structured. Following four simple steps in writing a paper will dramatically increase your chances of acceptance. If everyone followed these steps, the amount of communication in the object community would increase, improving the rate of progress.
 
 \pdfbookmark[1]{Abstract}{Abstract} % Bookmark name visible in a PDF viewer
 
@@ -17,7 +10,16 @@
 \let\cleardoublepage\relax
 
 \chapter*{Abstract}
-El procesamiento de señales del radar de trayectografía \emph{Vitro RIR-778C} es efectivo, pero anticuado. Teniendo en cuenta el avance de la tecnología en las últimas décadas, el radar no puede competir, en estas cuestiones, contra equipos modernos. Estudiando y llevando a cabo el reemplazo de ciertos módulos del radar, se acortará esta brecha. Si esto se despliega en todos los módulos del radar, se llegaría a tener un equipo competente, mejorable y mucho más mantenible.
+
+This paper presents the design of an IF (\emph{Intermediate Frequency}) signal receptor in order to modernize the one included on the Vitro RIR-778C tracking radar. 
+
+The radar's technique for doing the object tracking is the one called \emph{monopulse}, therefore this new system has to process the signals according to this method.
+
+For a proper signal processing, the IF analog signals are converted to a digital form by undersampling them.
+
+The physical device chosen for accomplish this is an FPGA programmed by a hardware description language.
+
+Despite the fact that it wasn't possible to perform real tests in the radar's environment, final results are promising, being very similar to those who'd been simulated.
 
 \endgroup			
 

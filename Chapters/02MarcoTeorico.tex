@@ -1,19 +1,25 @@
-% Marco teórico
-
-%----------------------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Radar}
-% https://www.zona-militar.com/foros/threads/radar-vitro-rir-778c.24972/
 \label{ch:radar}
 
 \section{Historia}
-El CIA cuenta, desde la década del 80, con el radar de trayectografía Vitro RIR-778C. Este fue comprado en 1986 a la firma \emph{Vitro Corporation} (actualmente \emph{BAE Systems} por un valor aproximado de U\$S 4.000.000. Se lo utilizó para seguimiento de alta precisión de cohetería de la FAA del momento. \par
-En 2008 comienzo el proceso de recuperación a partir de financiamiento PIDDEF del Ministerio de Defensa.
+El Radar de trayectografía VITRO RIR-778C fue adquirido a fin de la década de 1980 para los programas de cohetería de la Fuerza Aérea Argentina y quedó en desuso desde principios de 1990. El sistema en su conjunto ha tenido muy pocas horas de uso efectivo, por lo que se encuentra en perfecto estado de conservación. El proceso de diagnóstico y puesta en servicio operativo de este radar comenzó en el año 2009 financiado por el Ministerio de Defensa argentino. La primera etapa fue una fase de análisis y concluyó a fines del 2018 con el seguimiento exitoso de varios vuelos comerciales de linea en el marco del Programa de Investigación y Desarrollo para la Defensa (PIDDEF) número 24/14 \cite{Ant1} \cite{Ant2} \cite{Ant3} \cite{Ant4} \cite{Ant5}. Este proyecto es parte de la segunda etapa de este proceso y parte del PIDDEF número 10/18, cuyo objetivo es modernizar el radar. \par
+
 \begin{itemize}
     \item PIDDEF 011/2008: Análisis y diagnóstico
     \item PIDDEF 006/2010: Diseño de nueva computadora, interfaces y conexión de subsistemas
     \item PIDDEF 024/2014: Transmisión de potencia, seguimiento automático exitoso de blancos hasta 140 km. de distancia.
 \end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/4.1_0.png}
+    \caption{Radar Vitro en el Centro de Investigaciones Aplicadas de la Fuerza Aerea de Córdoba, Argentina (2021)}
+    \label{fig:lobes}
+\end{figure}
 
 \section{Performance}
 \begin{itemize}
@@ -30,51 +36,49 @@ En 2008 comienzo el proceso de recuperación a partir de financiamiento PIDDEF d
 \section{Trabajo realizado}
 \begin{itemize}
     \item El radar posee una computadora que estaba totalmente fuera de servicio. Se construyó una nueva en \emph{hardware} y \emph{software}.
-    \item Se desarrolló nuevas interfaces para la conexión entre la computadora y los distintos módulos del radar.
+    \item Se desarrollaron nuevas interfaces para la conexión entre la computadora y los distintos módulos del radar.
     \item Se recorrieron varios subsistemas, reparándolos y/o calibrandolos cuando necesario.
     \item Se ha logrado transmitir con una potencia efectiva de 130 kW (20\% de su potencia nominal).
     \item Con la anterior potencia se logró seguir blancos con hasta 140 km de rango.
 \end{itemize}
 
-\section{Imágenes}
- Loading...
-
-%----------------------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Monopulso}
-% "Monopulse Principles and Techiques" Second Edition - Samuel M. Sherman y David K. Barton
 \label{ch:monopulse}
 
 \section{Introducción}
 
-Monopulso (también conocido como <<comparación simultánea de lóbulos>>), es una técnica para medir la dirección de radiación que se recibe. La radiación puede provenir de una fuente activa, como lo es una antena transmisora, o de una fuenta pasiva, es decir, objetos que re-irradian energía que incide en ellos.
+Monopulso \cite{Monopulso} (también conocido como <<comparación simultánea de lóbulos>>), es una técnica para medir la dirección de radiación que se recibe. La radiación puede provenir de una fuente activa, como lo es una antena transmisora, o de una fuenta pasiva, es decir, objetos que reflejan la energía que incide en ellos.
 
 \section{Principios de radar}
 
 La función básica del radar es detectar la presencia de dispersores electromagnéticos (objetivos del radar) en el haz de la antena y determinar su posicion. En un radar típico, el transmisor genera pulsos de radiación electromagnética, usualmente a una tasa regular llamada \emph{frecuencia de repetición de pulso}. La antena irradia la salida del transmisor hacia el espacio, típicamente con un patrón direccional que concentra gran parte de la potencia en un haz angosto. \par
-La misma antena, en la mayoría de las veces, es también usada para la recepcion, pero no necesariamente con el mismo patrón. La señal recibida, que se encuentra en el espectro de la radio frecuencia. \par
-Si hay un objetivo en el haz, el radar recibe un \emph{echo} desde éste siguiendo cada pulso transmitido. La distancia entre el radar y el objeto se determina multiplicando la mitad del tiempo pasado entre el pulso transmitido y el pulso recibido (\emph{echo}) por la velocidad de la luz. \par
-Una forma cruda de determinar la posición angular del objetivo es mover el haz de la antena pasando la dirección del objetivo y notar cuál es la dirección que da la mayor amplitud del \emph{echo}. Este método es usado en muchos radares de búsqueda, sin embargo, si la presición debe ser muy fina, no es recomendado. \par
+La misma antena, en la mayoría de las veces, es también usada para la recepcion, pero no necesariamente con el mismo patrón. Las señales recibidas, que se encuentran en el espectro de la radio frecuencia, son convertidas al espectro de la frecuencia intermedia. \par
+Si hay un objetivo en el haz, el radar recibe un eco desde éste siguiendo cada pulso transmitido. La distancia entre el radar y el objeto se determina multiplicando la mitad del tiempo pasado entre el pulso transmitido y el pulso recibido (eco) por la velocidad de la luz. \par
+Una forma cruda de determinar la posición angular del objetivo es mover el haz de la antena pasando la dirección del objetivo y notar cuál es la dirección que da la mayor amplitud del eco. Este método es usado en muchos radares de búsqueda, sin embargo, si la presición debe ser muy fina, no es recomendado. \par
 La necesidad de mediciones de ángulo y distancia acertados y contínuos, llevan al desarrollo de los radares de trayectografía, empezando con los radares de la Segunda Guerra Mundial y culminando en los instrumentos súper sofisticados de hoy en día. La mejora más importante en la trayectografía angular fue el monopulso, que ahora es usado, además, para mediciones no angulares.
 
 \section{Radares de trayectografía y la evolución del monopulso}
 
 Un radar de trayectografía es un radar que automáticamente mantiene el eje del haz alineado con un objetivo seleccionado. Radares asi suelen tener un patrón de antena muy direccional. El ancho del haz es típicamente del orden de 1° en cada coordenada angular, aunque varía entre un radar y otro, e incluso un radar puede no tener el mismo ancho en sus dos coordenadas. \par
-Cualquier desviación del objetivo del eje del haz produce una señal de corrección (típicamente llamado \emph{error}) para cada coordenada, aproximadamente proporcional a la desviación angular en esa coordenada, con un signo de polaridad que indica el sentido del error (hacia arriba o abajo, hacia la izquierda o derecha). Esta señal de error es usada para controlar el eje del pedestal para que apunte hacia el objetivo. \par
-Un radar de trayectografía además \emph{trackea} en rango, manteniendo una puerta de rango (tiempo) centrada en el objetivo. Solo las señales recibidas durante esa puerta son aceptadas para el \emph{trackeo}. El intérvalo de tiempo entre los centros del pulso transmitido y la puerta de rango resulta en la medición de rango. Desviaciones del \emph{echo} del objetivo en relación al centro de la puerta de rango producen una señal de corrección, que tiende a mantener la puerta de rango centrada en el objetivo.
+Cualquier desviación del objetivo del eje del haz produce una señal de corrección (típicamente llamado \emph{error}) para cada coordenada, aproximadamente proporcional a la desviación angular en esa coordenada, con un signo de polaridad que indica el sentido del error (hacia arriba o abajo, hacia la izquierda o derecha). Esta señal de error es usada para controlar los ejes del pedestal para que apunte hacia el objetivo. \par
+Un radar de trayectografía además \emph{trackea} en rango, manteniendo una puerta de rango (tiempo) centrada en el objetivo. Solo las señales recibidas durante esa puerta son aceptadas para el \emph{trackeo}. El intérvalo de tiempo entre los centros del pulso transmitido y la puerta de rango resulta en la medición de rango. Desviaciones del eco del objetivo en relación al centro de la puerta de rango producen una señal de corrección, que tiende a mantener la puerta de rango centrada en el objetivo.
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/02_5.3_0.png}
+    \includegraphics[width=10cm]{gfx/5.3_0.png}
     \caption{Lóbulos en elevación}
     \label{fig:lobes}
 \end{figure}
 
-En los primeros años en la historia del radar, una técnica para \emph{trackeo} angular llamada \emph{lobe switching} se empezó a usar. En esta técnia el haz del radar, en vez de apuntar directamente al objetivo, apunta ligeramente hacia un lado y luego hacia el otro, alternando rápidamente entre ellos. En la figura \ref{fig:lobes} se ilustra esta técnica en elevación. Si el objetivo está por encima o por debajo del eje, los ecos son distintos. Si suponemos que el objetivo está por encima del eje, como muestra la linea punteada en la imágen, entonces el eco del lóbulo 1 es mayor que el del lóbulo 2. La diferencia de voltaje, en este caso, positiva, indica que para centrar el eje, la antena tiene que apuntar más alto. La diferencia entre estos voltajes puede usarse en un sistema de control realimentado que controle un \emph{servo} motor que mueva el eje automáticamente. \par
+En los primeros años en la historia del radar, una técnica para \emph{trackeo} angular llamada \emph{lobe switching} se empezó a usar. En esta técnica el haz del radar, en vez de apuntar directamente al objetivo, apunta ligeramente hacia un lado y luego hacia el otro, alternando rápidamente entre ellos. En la Figura \ref{fig:lobes} se ilustra esta técnica en elevación. Si el objetivo está por encima o por debajo del eje, los ecos son distintos. Si suponemos que el objetivo está por encima del eje, como muestra la linea punteada en la imágen, entonces el eco del lóbulo 1 es mayor que el del lóbulo 2. La diferencia de voltaje, en este caso, positiva, indica que para centrar el eje, la antena tiene que apuntar más alto. La diferencia entre estos voltajes puede usarse en un sistema de control realimentado que controle un \emph{servo} motor que mueva el eje automáticamente. \par
 
-La misma operación puede hacerse en ambas coordenadas angulares. Además, se pueden combinar, permitiendo un \emph{trackeo} angular completo, requiriendo cuatro posiciones de haz, como muestra la figura \ref{fig:beams}(a). El haz puede ser movido electrónicamente o por rotaciones mecánicas entre los ejes. Si el movimiento es mecánico, es preferible moverlo de forma contínua y de manera circular, resultando en un escaneo cónico. El \emph{lobe switching} y el escaneo cónico se pueden combinar: aunque el movimiento del haz es contínuo en el escaneo cónico, el objetivo es iluminado solo cuando es alcanzado por un pulso transmitido, como muestra la figura \ref{fig:beams}(b). Si la tasa de escaneo es 30 ciclos por segundo (valor típico), y la tasa de repetición del pulso tiene un valor ilustrativo de 240 pulsos por segundo, entonces hay 8 posiciones de haz por escaneada.
+La misma operación puede hacerse en ambas coordenadas angulares. Además, se pueden combinar, permitiendo un \emph{trackeo} angular completo, requiriendo cuatro posiciones de haz, como muestra la Figura \ref{fig:beams}(a). El haz puede ser movido electrónicamente o por rotaciones mecánicas entre los ejes. Si el movimiento es mecánico, es preferible moverlo de forma contínua y de manera circular, resultando en un escaneo cónico. El \emph{lobe switching} y el escaneo cónico se pueden combinar: aunque el movimiento del haz es contínuo en el escaneo cónico, el objetivo es iluminado solo cuando es alcanzado por un pulso transmitido, como muestra la Figura \ref{fig:beams}(b). Si la tasa de escaneo es 30 ciclos por segundo (valor típico), y la tasa de repetición del pulso tiene un valor ilustrativo de 240 pulsos por segundo, entonces hay 8 posiciones de haz por escaneada.
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/02_5.3_1.png}
+    \includegraphics[width=10cm]{gfx/5.3_1.png}
     \caption{Tipos de posicionamientos secuenciales de los haces}
     \label{fig:beams}
 \end{figure}
@@ -103,24 +107,24 @@ La mayoría de los radares de trackeo usados hoy dia son del tipo monopulso. A l
 
 A continuación se presenta un ejemplo clásico de un radar de monopulso. Si bien este ejemplo difiera de las distintas maneras de configurar un radar de monopulso, las ideas principales se mantienen. \par
 
-El radar que servirá de modelo tiene una antena de reflector paraboidal alimentada por un \emph{cluster} de cuatro cuernos en el plano focal, como se ve en la figura \ref{fig:antenna}. Los dos cuernos que se ven en la figura \ref{fig:antenna}(a) están vistos desde frente a quién observa, y los otros dos están del lado opuesto. Si el observador mira de manera axial desde el centro del reflector, los cuernos se ven como en la figura \ref{fig:antenna}(b). Estos cuatro cuernos generan cuatro haces, como se ve en la figura \ref{fig:four_lobes}. Notar que los cuernos de arriba producen los haces de abajo. Los haces son tales que si sus salidas son conectadas a cuatro receptores idénticos y separados, sus respuestas a una onda plana incidente serían todas en la misma fase pero generalmente van a diferir en amplitud de acuerdo a los patrones del haz y las direcciones de recepción de las ondas. El punto trasnversal común es en el eje del paraboide. Solo un objetivo en el eje simétrico de la antena daría amplitudes iguales en los cuatro haces. De las proporciones de las amplitudes se puede determinar las dos componentes angulares de la dirección del objetivo relativa a los ejes. Tres haces serían suficientes para determinar las dos componentes angulares de un objetivo, sin embargo, generalmente son usados cuatro haces debido a una cuestión de simetría. \par
+El radar que servirá de modelo tiene una antena de reflector paraboidal alimentada por un \emph{cluster} de cuatro cuernos en el plano focal, como se ve en la Figura \ref{fig:antenna}. Los dos cuernos que se ven en la Figura \ref{fig:antenna}(a) están vistos desde frente a quién observa, y los otros dos están del lado opuesto. Si el observador mira de manera axial desde el centro del reflector, los cuernos se ven como en la Figura \ref{fig:antenna}(b). Estos cuatro cuernos generan cuatro haces, como se ve en la Figura \ref{fig:four_lobes}. Notar que los cuernos de arriba producen los haces de abajo. Los haces son tales que si sus salidas son conectadas a cuatro receptores idénticos y separados, sus respuestas a una onda plana incidente serían todas en la misma fase pero generalmente van a diferir en amplitud de acuerdo a los patrones del haz y las direcciones de recepción de las ondas. El punto trasnversal común es en el eje del paraboide. Solo un objetivo en el eje simétrico de la antena daría amplitudes iguales en los cuatro haces. De las proporciones de las amplitudes se puede determinar las dos componentes angulares de la dirección del objetivo relativa a los ejes. Tres haces serían suficientes para determinar las dos componentes angulares de un objetivo, sin embargo, generalmente son usados cuatro haces debido a una cuestión de simetría. \par
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/02_5.4_0.png}
+    \includegraphics[width=10cm]{gfx/5.4_0.png}
     \caption{Reflector y \emph{feed horns}: (a) vista de costado y (b) vista axial de \emph{feed horns}}
     \label{fig:antenna}
 \end{figure}
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/02_5.4_1.png}
+    \includegraphics[width=10cm]{gfx/5.4_1.png}
     \caption{Cuatro lóbulos en comparación simultánea}
     \label{fig:four_lobes}
 \end{figure}
 
-Los haces se muestran de forma frontal en la figura \ref{fig:four_lobes_frontal}. Sean A, B, C y D representaciones de los correspondientes voltajes recibidos. En teoría, las salidas de los cuatro cuernos pueden estar conectadas a cuatro receptores idénticos, salidas de las cuales pueden compararse. En la práctica, los cuatro receptores, aún si están calibrados inicialmente para tener igual ganancia y fase, van a variar de manera distinta en función del tiempo, el nivel de la señal, la radiofrecuencia y las condiciones ambientales. El resultado sería grandes desviaciones en los ejes eléctricos y en las mediciones de los ángulos del objetivo. \par
+Los haces se muestran de forma frontal en la Figura \ref{fig:four_lobes_frontal}. Sean A, B, C y D representaciones de los correspondientes voltajes recibidos. En teoría, las salidas de los cuatro cuernos pueden estar conectadas a cuatro receptores idénticos, salidas de las cuales pueden compararse. En la práctica, los cuatro receptores, aún si están calibrados inicialmente para tener igual ganancia y fase, van a variar de manera distinta en función del tiempo, el nivel de la señal, la radiofrecuencia y las condiciones ambientales. El resultado sería grandes desviaciones en los ejes eléctricos y en las mediciones de los ángulos del objetivo. \par
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/02_5.4_2.png}
+    \includegraphics[width=10cm]{gfx/5.4_2.png}
     \caption{Vista frontal de los cuatro lóbulos}
     \label{fig:four_lobes_frontal}
 \end{figure}
@@ -135,7 +139,7 @@ El método usual, entonces, es formar la suma, una diferencia de elevación y un
 
 El factor 1/2 en estas ecuaciones se debe a la igualdad de la potencia total de entrada y la potencia total de salida, asumiendo que no hay pérdidas. \par
 
-Las formas de los patrones de voltaje de la suma y de la diferencia se ven en la figura \ref{fig:formas} tanto para elevación como para el transverso. También se ven los patrones de voltaje \emph{v1} y \emph{v2} de los pares de haces, cuyas suma y diferencia son:
+Las formas de los patrones de voltaje de la suma y de la diferencia se ven en la Figura \ref{fig:formas} tanto para elevación como para el transverso. También se ven los patrones de voltaje \emph{v1} y \emph{v2} de los pares de haces, cuyas suma y diferencia son:
 
 \begin{center}
     $v_1=\frac{C+D}{\sqrt{2}}$
@@ -162,26 +166,26 @@ La suma y la diferencia (en cada coordenada) se relacionan con \emph{v1} y \emph
 \end{center}
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/02_5.4_3.png}
+    \includegraphics[width=10cm]{gfx/5.4_3.png}
     \caption{Comparación de amplitud de los patrones de monopulso en ambas coordenadas}
     \label{fig:formas}
 \end{figure}
 
 La dirección espacial, en donde las diferencias de elevación y de transverso tienen sus nulos al mismo tiempo, es llamada eje de monopulso, eje de mira, eje de \emph{tracking} o eje eléctrico. Idealmente, coindice con el eje geométrico o mecánico del reflector, pero en la práctica suele haber una desviación. Para determinar cuál es el eje de monopulso, es necesario calibrar la antena, cuyo proceso consiste en moverapuntar la antena de tal manera que el resultado sea nulo mientras se apunta a un objetivo en una dirección conocida. El patrón de suma tiene un pico en el eje de monopulso, pudiendo diferir levemente. \par
 
-La figura \ref{fig:functional_diagram} es un diagrama funcional que incluye, de manera simplificada, los pasos del procesamiento descriptos hasta ahora y aquellos que faltan.
+La Figura \ref{fig:functional_diagram} es un diagrama funcional que incluye, de manera simplificada, los pasos del procesamiento descriptos hasta ahora y aquellos que faltan.
 
 \begin{figure}[h]
-    \includegraphics[width=10cm]{gfx/02_5.4_4.png}
+    \includegraphics[width=10cm]{gfx/5.4_4.png}
     \caption{Diagrama funcional del radar de monopulso}
     \label{fig:functional_diagram}
 \end{figure}
 
-El mismo canal que forma los patrones de suma en la recepción es también usado en la dirección contraria para transmisión. Así, el patrón de transmisión es el mismo que se ve en la figura \ref{fig:formas}. En la recepción, la señal de suma es usada para detección, obtención de rango y \emph{display}, además de su función de monopulso. \par
+El mismo canal que forma los patrones de suma en la recepción es también usado en la dirección contraria para transmisión. Así, el patrón de transmisión es el mismo que se ve en la Figura \ref{fig:formas}. En la recepción, la señal de suma es usada para detección, obtención de rango y \emph{display}, además de su función de monopulso. \par
 
 En los receptores de los canales de suma y diferencia los voltajes de radiofrecuencia (RF), provenientes de la red combinadora de microondas, son convertidos a voltajes de frecuencia intermedia (IF) al mezclarse con la salida de un oscilador local, amplificando y filtrando en IF. El ancho de banda del filtro es aproximadamente el recíproco al ancho de pulso del radar. \par
 
-Por cada coordinada hay un procesador de monopulso, pudiendo este tomar distintas formas. La funcionalidad comúm entre procesadores de monopulso es que todos responden a diferencias de voltaje, diferencias de fase o a ambas, pero nunca a fases o voltajes absolutos. \par
+Por cada coordenada hay un procesador de monopulso, pudiendo este tomar distintas formas. La funcionalidad común entre procesadores de monopulso es que todos responden a diferencias de voltaje, diferencias de fase o a ambas, pero nunca a fases o voltajes absolutos. \par
 
 En nuestro radar de monopulso base, las dos entradas de cada procesador son la señal de suma y la señal de diferencia para una coordenada. La salida es la proporción entre la amplitud de voltaje de la suma y de la diferencia, multiplicada por el coseno de la fase angular relativa entre los dos voltajes. La fase relativa se denota como $\delta_{tr}$ en transverso y $\delta_{el}$ en elevación. En nuestro modelo ideal, estas dos señales siempre tienen 0° o 180° de fase relativa, ya que están derivadas de cuatro haces individuales cuyas salidas, se asume, tienen la misma fase. Por lo tanto, el coseno es +1 si el objetivo está a un lado del eje y -1 si está en el otro lado del eje. \par
 
@@ -189,9 +193,9 @@ La proporción de amplitud indica cuán lejos del eje está el objetivo y el fac
 
 La salida en cada coordenada, consistiendo de una proporción de amplitud de voltaje multiplicada por el coseno de la fase relativa, es comunmente llamada la señal de <<error>> en esa coordenada, pero se evita este nombre ya que una señal de <<error>> no es necesariamente asociada a un error cuando se determina el ángulo de un objetivo. Un nombre más descriptivo es la señal de diferencia normalizada, o, más específico, the componente en fase de la señal de diferencia normalizada. Una manera más general de llamar a la salida es simplemente "salida del procesador de monopulso", que incluye no solo el tipo de salida producida por el radar base si no tambien por otros tipos de procesadores de monopulso. \par
 
-Este modelo de radar base es un radar dirigido mecánicamente. La salida del procesador de monopulso, luego de una transformación de coordenada, se convierte en la entrada de los canales de los servoamplificadores, y los servos hacen girar la antena en la dirección correspondiente hasta que se encuentre un nulo en la salida del procesador de monopulso. La razón de la transformación de coordenada es que las coordenadas de rotación mecánica de la antena son, típicamente, azimuth y elevación mientras que las señales de diferencias son funciones de la elevación y del transverso del objetivo, relativos al eje de la antena. Con una simple transformación aproximada es suficiente. Esto consiste en multiplicar la salida del monopulso transversal por la secante del ángulo de elevación de la antena para manejar el servo del azimuth, y usando la salida del monopulso de elevación sin transformación para manejar el servo de elevación. \par
+Este modelo de radar base es un radar dirigido mecánicamente. La salida del procesador de monopulso, luego de una transformación de coordenada, se convierte en la entrada de los canales de los servoamplificadores, y los servos hacen girar la antena en la dirección correspondiente hasta que se encuentre un nulo en la salida del procesador de monopulso. La razón de la transformación de coordenada es que las coordenadas de rotación mecánica de la antena son, típicamente, azimuth y elevación mientras que las señales de diferencias son funciones de la elevación y del transverso del objetivo, relativos al eje de la antena. Con una simple transformación aproximada es suficiente. Esto consiste en multiplicar la salida del monopulso transversal por la secante del ángulo de elevación de la antena para manejar el servo del azimuth, y usando la salida del monopulso de elevación sin transformación para manejar el servo de elevación.
 
-Idealmente el eje de la antena sigue la dirección del objetivo de manera exacta, pero en la práctica existen desviaciones. Mientras el servo hace lo posible por mantener el eje apuntando al objetivo, siempre existen pequeños retardos. El retardo puede ser causado por aceleraciones del objetivo por encima de la capacidad del servo. El viento también puede generar desviaciones del eje en relación al objetivo. En ambos casos (desviaciones por viento o retardos) hay un voltaje residual en la salida del procesador de monopulso, el cual el servo no puede ignorar. El error resultante se puede remover mediante una funcionalidad opcional llamada \emph{señal corrección de error} o \emph{señal de corrección eléctrica}. El residuo de la salida del procesador de monopulso que el servo no puede hacer nula is medida y convertida al correspondiente ángulo de desvío del eje mediante una función de calibración conocida. El ángulo de desvío del eje, sumado al ángulo de rotación del eje del pedestal, da un valor corregido del ángulo del objetivo.
+%Idealmente el eje de la antena sigue la dirección del objetivo de manera exacta, pero en la práctica %existen desviaciones. Mientras el servo hace lo posible por mantener el eje apuntando al objetivo, %siempre existen pequeños retardos. El retardo puede ser causado por aceleraciones del objetivo por %encima de la capacidad del servo. El viento también puede generar desviaciones del eje en relación al %objetivo. En ambos casos (desviaciones por viento o retardos) hay un voltaje residual en la salida del %procesador de monopulso, el cual el servo no puede ignorar. El error resultante se puede remover %mediante una funcionalidad opcional llamada \emph{señal corrección de error} o \emph{señal de %corrección eléctrica}. El residuo de la salida del procesador de monopulso que el servo no puede hacer %nula is medida y convertida al correspondiente ángulo de desvío del eje mediante una función de %calibración conocida. El ángulo de desvío del eje, sumado al ángulo de rotación del eje del pedestal, %da un valor corregido del ángulo del objetivo.
 
 \section{Ventajas y desventajas del monopulso}
 
@@ -219,11 +223,10 @@ Hay factores adicionales que, si bien no están directamente atribuidos al uso d
 
 Si bien aquí se hace énfasis al monopulso usado para radar, las mismas (o análogas) técnicas pueden ser usadas con otras intenciones. Otras aplicaciones de RF incluyen \emph{passive direction-finding}, comunicaciones, radio astronomía, y guía de misiles. El principio del monopulso es también usado en \emph{sonar} activo y/o pasivo, y en algunos \emph{trackeadores} ópticos. \par
 
-\begin{thebibliography}{9}
-\bibitem{texbook}
-Samuel M. Sherman - David K. Barton (2011) \emph{Monopulse Principles and Techniques}, Second Edition
-\end{thebibliography}
-%----------------------------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Procesamiento de señales}
 
@@ -238,11 +241,11 @@ Una solución común en estos casos es aplicar el \emph{teorema del muestreo}\fo
 Ahora bien, para los fines que este proyecto tiene, de las señales sólo se necesita conocer su amplitud y la fase relativa entre la señal de referencia y la señal de error (para cada coordenada), y para esto no es necesaria la reconstrucción exacta. Por lo tanto, se elige otro camino para encarar el procesamiento de señales. 
 
 \section{Undersampling}
-El método elegido es el de \emph{undersampling}. Esta técnica consiste en muestrear la señal por debajo de la frecuencia de \emph{Nyquist} (es decir, por debajo del doble del ancho de banda de la señal). Esto conlleva a que, como se dijo anteriormente, la señal no sea reconstruible y el resultado del muestreo sea un \emph{aliasing} de la señal original.
+El método elegido es el de \emph{undersampling} \cite{Undersampling}. Esta técnica consiste en muestrear la señal por debajo de la frecuencia de \emph{Nyquist} (es decir, por debajo del doble del ancho de banda de la señal). Esto conlleva a que, como se dijo anteriormente, la señal no sea reconstruible y el resultado del muestreo sea un \emph{aliasing} de la señal original.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=10cm]{gfx/02_6.2_0.png}
+    \includegraphics[width=10cm]{gfx/6.2_0.png}
     \caption{Ejemplo del \emph{aliasing}. En rojo la señal original y en azul el resultado si se muestrea por debajo de la frecuencia de Nyquist}
     \label{fig:aliasing_example}
 \end{figure}
@@ -255,72 +258,153 @@ Sin embargo, aplicando ciertas técnicas, uno podría minimizar las diferencias 
 
 \section{Técnica para aplicar undersampling}
 
-Se va a explicar el procedimiento para aplicar \emph{undersampling} de la manera correcta y con un ejemplo en el cual se muestrea una señal de 70 MHz con un ancho de banda de 20 MHz (la frecuencia de la señal varía entre 60 MHz y 80 MHz). En muchos casos de aplicaciones de radar, el valor de 70 MHz como frecuencia IF es común, con un ancho de banda que varía entre algunos KHz a unos pocos MHz. \par
+Se va a explicar el procedimiento para aplicar \emph{undersampling} de la manera correcta y con un ejemplo en el cual se muestrea una señal de 70 MHz con un ancho de banda de 20 MHz (la componente de frecuencia de la señal varía entre 60 MHz y 80 MHz). En muchos casos de aplicaciones de radar, el valor de 70 MHz como frecuencia IF es común, con un ancho de banda que varía entre algunos KHz a unos pocos MHz. \par
 
 La componente máxima de frecuencia en esta señal es de 80 MHz. Para un caso de sobremuestreo, la tasa de muestreo debe ser mayor a 160 MSPS. Para mantener esta banda, que va desde 60 MHz a 80 MHz, en la primera zona de Nyquist, la frecuencia de muestreo debe ser 280 MSPS. Este caso se muestra en la imágen \ref{fig:undersampling0}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=10cm]{gfx/02_6.3_0.png}
+    \includegraphics[width=10cm]{gfx/6.3_0.png}
     \caption{Caso de muestreo normal (Sobremuestreo): Frecuencia IF en el centro de la zona Nyquist}
     \label{fig:undersampling0}
 \end{figure}
 
 Siendo $F_s$ la frecuencia de muestreo tenemos que, cada $F_s/2$ y empezando desde DC hasta $F_s/2$, se definen las zonas de Nyquist. La primera zona de Nyquist va desde DC hasta $F_s/2$, la segunda zona de Nyquist va desde $F_s/2$ a $F_s$, la tercera zona de Nyquist va desde $F_s$ a $3F_s/2$, y asi sucesivamente. \par
 
-Para bajar la tasa de muestreo en el caso de sobremuestreo, aún si no es necesario que el ancho de banda de la señal esté en el centro de la primera zona de Nyquist, se podría elegir una tasa de muestro cercana a 200 MSPS (y no 160 MSPS) para una aplicación práctica. Esto se ve en la figura \ref{fig:undersampling1}.
+Para bajar la tasa de muestreo en el caso de sobremuestreo, aún si no es necesario que el ancho de banda de la señal esté en el centro de la primera zona de Nyquist, se podría elegir una tasa de muestro cercana a 200 MSPS (y no 160 MSPS) para una aplicación práctica. Esto se ve en la Figura \ref{fig:undersampling1}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=10cm]{gfx/02_6.3_1.png}
+    \includegraphics[width=10cm]{gfx/6.3_1.png}
     \caption{Caso práctico de muestreo (Sobremuestreo)}
     \label{fig:undersampling1}
 \end{figure}
 
-La misma señal puede ser muestreada a más de 40 MSPS, por ejemplo, a 56 MSPS para mantener la señal en el centro de la tercera zona de Nyquist usando la técnica de \emph{undersampling}. Esto se observa en la figura \ref{fig:undersampling2}.
+La misma señal puede ser muestreada a más de 40 MSPS, por ejemplo, a 56 MSPS para mantener la señal en el centro de la tercera zona de Nyquist usando la técnica de \emph{undersampling}. Esto se observa en la Figura \ref{fig:undersampling2}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=10cm]{gfx/02_6.3_2.png}
+    \includegraphics[width=10cm]{gfx/6.3_2.png}
     \caption{Caso de \emph{undersampling} de señal de 70 MHz con un ancho de banda de 20 MHz}
     \label{fig:undersampling2}
 \end{figure}
 
-Como se ve en la figura \ref{fig:undersampling2}, la señal IF de 70 MHz en la tercera zona de Nyquist es llevada (o \emph{aliased back}) a la primera zona de Nyquist centrada en 14 MHz y con una tasa de \emph{undersampling} de 56 MSPS. Este proceso de llevar una señal a banda base puede ser llevado a cabo por un DDC (\emph{digital down-converter}). Una FPGA podría implementar esta funcionalidad. Sin embargo, muchos diseños de radiofrecuencia usan la técnica de \emph{undersampling}, aprovechando las ventajas de la misma y asi ganar espacio en las placas, potencia y dinero. \par
+Como se ve en la Figura \ref{fig:undersampling2}, la señal IF de 70 MHz en la tercera zona de Nyquist es llevada (o \emph{aliased back}) a la primera zona de Nyquist centrada en 14 MHz y con una tasa de \emph{undersampling} de 56 MSPS. Este proceso de llevar una señal a banda base puede ser llevado a cabo por un DDC (\emph{digital down-converter}). Una FPGA podría implementar esta funcionalidad. Sin embargo, muchos diseños de radiofrecuencia usan la técnica de \emph{undersampling}, aprovechando las ventajas de la misma y asi ganar espacio en las placas, potencia y dinero. \par
 
 El espectro de la señal no se ve invertido en este caso. Ninguna señal se invierte cuando se encuentra en una zona de Nyquist impar como la tercera, la quinta, y asi. No sucede lo mismo si la zona de Nyquist es par, ya que en estos casos el espectro si se ve invertido. Esta inversión, generalmente, no es algo malo o una desventaja, ya que es muy sencillo volver a invertir el espectro de la señal, aunque en algunos casos si puede llegar a provocar serios problemas. \par
 
-Una técnica que puede ser útil para visualizar la relación entre las zonas de Nyquist y la inversión espectral es la técnica de \emph{paper fan-fold}. Esta técnica consiste en imprimir la gráfica del espectro de nuestra señal en un papel transparente, doblando el mismo en forma de acordeón, haciendo los pliegues en los límites entre una zona de Nyquist y otra, como se ve en la figura \ref{fig:fan_fold0}.
+Una técnica que puede ser útil para visualizar la relación entre las zonas de Nyquist y la inversión espectral es la técnica de \emph{paper fan-fold} \cite{Paper-Fold}. Esta técnica consiste en imprimir la gráfica del espectro de nuestra señal en un papel transparente, doblando el mismo en forma de acordeón, haciendo los pliegues en los límites entre una zona de Nyquist y otra, como se ve en la Figura \ref{fig:fan_fold0}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=10cm]{gfx/02_6.3_3.png}
+    \includegraphics[width=10cm]{gfx/6.3_3.png}
     \caption{Papel plegado como indica el método de \emph{paper fan-fold}}
     \label{fig:fan_fold0}
 \end{figure}
 
-Si hacemos colapsar el papel de tal manera que se vea todo el espectro en una sola cara cuadrada, se verían todas las amplitudes del espectro de cada zona de Nyquist, superpuestas. Además, se puede notar que aquellas componentes que se encuentran en las zonas de Nyquist pares se ven invertidas. Lo anterior se puede ver en la figura \ref{fig:fan_fold1}, y es la representación del resultado de hacer \emph{undersampling}.
+Si hacemos colapsar el papel de tal manera que se vea todo el espectro en una sola cara cuadrada, se verían todas las amplitudes del espectro de cada zona de Nyquist, superpuestas. Además, se puede notar que aquellas componentes que se encuentran en las zonas de Nyquist pares se ven invertidas. Lo anterior se puede ver en la Figura \ref{fig:fan_fold1}, y es la representación del resultado de hacer \emph{undersampling}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=5cm]{gfx/02_6.3_4.png}
+    \includegraphics[width=5cm]{gfx/6.3_4.png}
     \caption{Resultado del método de \emph{paper fan-fold}}
     \label{fig:fan_fold1}
 \end{figure}
 
 Hay que asegurarse que el total del ancho de banda de la señal esté contenido en una zona de Nyquist y no entre dos zonas. Si esto último sucede, se dice que se tiene un mal \emph{aliasing}, y la componente llevada a la primera zona de Nyquist no podría ser obtenida por ningun DDC.
 
-\begin{thebibliography}{9}
-\bibitem{texbook}
-Purnachandar Poshala (2013) \emph{Why Oversample when Undersampling can do the Job?} 
-\bibitem{texbook}
-Rodger H. Hosking, Pentek (2006) \emph{How to use undersampling}
-\end{thebibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%----------------------------------------------------------------------------------------
+\chapter{Filtro digital}
+\label{ch:filtro_digital}
+
+\section{Introducción}
+
+Para tener una mejor calidad en la señal \emph{undersampleada} resultante, la misma va a pasar por un filtro pasabajos, es decir, el filtro se encargará de atenuar las componentes de alta frecuencia que estan presentes en la señal. \par
+
+\section{Definición}
+
+Un filtro digital \cite{Filter} es un sistema que, a través de operaciones matemáticas sobre una señal muestreada y discreta en tiempo, reduce o mejora ciertos aspectos de esta señal. Estos filtros están en contraste con el otro tipo de filtros electrónicos, los analógicos, que son típicamente un circuito electrónico operando sobre señales analógicas y contínuas en el tiempo. \par
+
+Un sistema de filtrado digital típicamente consiste de un ADC para muestrear la señal de entrada, seguido por un microprocesador y algunos componentes periféricos como, por ejemplo, memoria para guardar datos y los coeficientes del filtro. El \emph{software} corriendo en el microprocesador implementa el filtrado digital al llevar a cabo las operaciones matemáticas necesarias en las muestras recibidas por el ADC. En algunas aplicaciones de alta \emph{performance}, una FPGA o ASIC es usada en lugar de un microcontrolador, o un procesador especializado en señales digitales (DSP) con una arquitectura específica para optimizar el filtrado. \par
+
+Los filtros digitales suelen ser más caros que sus equivalentes filtros analógicos debido a su mayor complejidad, sin embargo los primeros hacen prácticos muchos diseños que son imprácticos o incluso imposibles para los filtros analógicos. Cuando son usados en contexto de sistemas analógicos de tiempo real, los filtros digitales pueden tener una latencia prolemática debido a sus conversiones analógicas a digitales y digitales a analógicas y al filtrado \emph{anti-aliasing}, o debido a \emph{delays} asociados a su implementación. \par
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=9cm]{gfx/7.2_0.png}
+    \caption{Filtro digital con entrada ruidosa y salida con ruido reducido}
+    \label{fig:filter}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{FPGA}
+\label{ch:fpga}
 
-\label{ch:fpga} % For referencing the chapter elsewhere, use \autoref{ch:introduction} 
+\section{Introducción}
 
-%----------------------------------------------------------------------------------------
+Las técnicas anteriormente explicadas, esto es las ténicas de monopulso y de procesamiento de señales, deben ser llevadas a cabo por alguna computadora o dispositivo digital capaz de soportar la tasa de datos que se recibe desde un conversor analógico-digital. El dispositivo elegido para este proyecto es la FPGA.
+
+\section{Definición}
+
+Una FPGA (\emph{field-programmable gate array}) es un circuito integrado diseñado para ser configurado por un usuario luego de su manufactura (a esto se debe el término \emph{field-programmable}). Dicha configuración, generalmente, se especifica mediante un lenguaje de descripción de \emph{hardware}, comúmnmente llamado HDL (\emph{hardware description language}). Anteriormente se usaban diagramas de circuitos para realizar las configuraciones pero actualmente se usan los HDL debido a las nuevas herramientas de diseño automático. \par
+
+Las FPGAs contienen un arreglo de bloques lógicos programables, y una jerarquía de inteconexiones reconfigurables que hacen posible que los bloques puedan ser cableados entre sí. Los bloques son capaces de ser configurados para llevar a cabo funciones combinacionales complejas, o también para actuar como simples compuertas lógicas como una compuerta AND. En la mayoria de las FPGAs, estos bloques lógicos incluyen elementos de memoria que pueden ir desde simplemente un conjunto de \emph{flip-flops} a bloques completos de memoria. Además, la mayoría de las FPGAs pueden reprogramables para implementar distintas funciones lógicas, permitiendo una reconfiguración computacional flexible como la que se puede ver en el \emph{software} de computadoras. \par
+
+Estos dispositivos tienen un rol muy importante en el desarrollo de sistemas embebidos debido a su capacidad de comenzar el desarrollo del \emph{software} simultáneamente con el desarrollo del \emph{hardware} y/o por la posibilidad que nos da de hacer simulaciones del sistema en una etapa temprana del desarrollo.
+
+\section{FPGA vs. microcontroladores}
+
+Ambas tecnologías tienen el mismo propósito básico: están hechas de manera que un fabricante o un usuario final pueda determinar su funcionalidad. Las dos llevan a cabo aplicaciones específicas y están embebidas dentro de otros dispositivos, como por ejemplo luces de tráfico o lavarropas. Esta versatilidad hace que uno pueda encontrarlos en cualquier parte. \par
+
+A continuación se detallan algunas cuestiones que diferencian a cada una de estas tecnologías.
+
+\subsection{Microcontroladores}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5cm]{gfx/8.3.1_0.png}
+    \caption{PIC 16F877A de la marca Microchip}
+    \label{fig:pic}
+\end{figure}
+
+\begin{itemize}
+    \item Son más fáciles de usar: Cualquier persona con un conocimiento básico de programación puede configurar un microcontrolador. 
+    \item Son más accesibles económicamente: Debido a su facilidad de producción en masa, los costos generalmente son menores en relación a una FPGA.
+    \item No son ideales para aplicaciones complejas: El CPU de un microcontrolador maneja todas las entradas y salidas. Debido a esto, suelen ocurrir cuellos de botella que hacen que algunos procesos tengan que esperar. Por el contrario, se podría decir que los microcontroladores son ideales para aplicaciones simples.
+\end{itemize}
+
+\subsection{FPGAs}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5cm]{gfx/8.3.2_0.png}
+    \caption{FPGA Spartan de la marca Xilinx}
+    \label{fig:spartan}
+\end{figure}
+
+\begin{itemize}
+    \item Requieren mayores conocimientos para ser usadas: Uno necesita más que un conocimiento básico de programación para configurar estos dispotivios. Hace falta, entre otras cosas, poder monitorear una cantidad grande de variables. Además hace falta entender un lenguaje de descripción de \emph{hardware}.
+    \item Permiten mucho más paralelismo: Una FPGA tiene miles de bloques lógicos que pueden ser programados. Uno podría crear procesos independientes unos de otros que avancen en sus tareas de manera realmente paralela.
+    \item Ofrecen un mayor nivel de \emph{customización}: Si uno sabe lo que hace, uno puede hacer muchas más cosas con una FPGA en comparación con un microcontrolador. Si la tarea a realizar es complicada, se puede llegar a necesitar una \emph{customización} mayor que la que un microcontrolador puede ofrecer.
+    \item Tienden a costar más: Una desventaja de las FPGAs es que tienden a ser más costosas.
+    \item Son ideales para aplicaciones complejas: Debido a su capacidad de paralelismo, se pueden implementar muchas más entradas con una FPGA que con un microcontrolador sin pasar por problemas de cuello de botella.
+    \item Permiten cambios posteriores: Uno de los mayores beneficios de las FPGAs es que el \emph{hardware} puede ser <<cambiado>> después de su programación inicial. Debido a esto, se puede cambiar la funcionalidad del dispositivo sin hacer un verdadero cambio de \emph{hardware}. Al largo plazo, esto es más efectivo, económicamente hablando.
+\end{itemize}
+
+\section{Verilog}
+
+Como se mencionó anteriormente, la manera en la que se <<programa>> una FPGA es a través de un lenguaje de descripción de \emph{hardware} (comúnmente llamado HDL). Dentro de estos, se destacan dos: \emph{Verilog} y \emph{VHDL}. En esta oportunidad se opta por utilizar el primero. \par
+
+\emph{Verilog} nos da la posibilidad de hacer un diseño de jerarquía de módulos que se comunican entre si. Estos módulos son porciones del diseño que se encargan de hacer alguna/s tarea/s en especial y, de esta manera uno podría, entre otras cosas, concatenar una serie de módulos para realizar operaciones complejas que requieran de varias etapas. \par
+
+En la siguiente sección del documento, se muestran implementaciones de algunos módulos de interés (los fuentes completos están a disposición\cite{Repository}). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

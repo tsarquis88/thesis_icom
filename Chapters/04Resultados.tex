@@ -1,0 +1,96 @@
+\chapter{Resultados}
+
+\section{Entorno de pruebas}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{gfx/10.1_0.png}
+    \caption{Módulo IF Test Set}
+    \label{fig:iftest}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{gfx/10.1_1.png}
+    \caption{Señales de referencia y error producidas por el \emph{test set} vistas en oscilosopio - Variación de amplitud}
+    \label{fig:iftest_amplitud}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{gfx/10.1_2.png}
+    \caption{Señales de referencia y error producidas por el \emph{test set} vistas en oscilosopio - Variación de fase}
+    \label{fig:iftest_fase}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{gfx/10.1_3.png}
+    \caption{Señales de referencia y \emph{gate} producidas por el \emph{test set} vistas en oscilosopio}
+    \label{fig:iftest_gate}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{gfx/10.1_4.png}
+    \caption{Módulo IF Test Set alimentando a la FPGA}
+\end{figure}
+
+Ante las dificultades de trabajar con las señales reales obtenidas por el receptor del radar, las pruebas se realizaron con el módulo <<IF TEST SET>> (Fig. \ref{fig:iftest}). Este módulo, que forma parte del radar, sirve como un simulador de las señales de frecuencia intermedia que están involucradas en este proceso. \par
+
+Este \emph{test set} da la posibilidad de generar las señales de error y de referencia, así como también permite variar sus amplitudes, frecuencias y la fase entre ambas. Además, puede simular una tercera señal: el \emph{gate}. La señal de \emph{gate} es una señal pulseada que permite avisarle al muestreador (en este caso, la FPGA) cuándo muestrear, debido a que la mayor parte del tiempo las señales de monopulso son nulas (recordar que las señales de monopulso son ecos de un pulso transmitido, y éste posee un \emph{duty cycle} muy pequeño). \par
+
+En las figuras \ref{fig:iftest_amplitud}, \ref{fig:iftest_fase} y \ref{fig:iftest_gate} se puede ver las salidas del \emph{IF Test Set} vistas en un osciloscopio. \par
+
+En la Figura \ref{fig:iftest_amplitud} se puede ver una comparación entre las amplitudes de las señales de monopulso en la que la amplitud de la señal de error se ve atenuada. El \emph{test set} posee varios botones con los cuales se puede atenuar (a distintos decibelios) la señal de error o ambas señales al mismo tiempo. \par
+
+En la Figura \ref{fig:iftest_fase} se muestra cómo el módulo puede variar la fase entre las señales. Esta variación de fase se realiza a través de una llave de dos estados para indicar los 0° o 180° de fase. \par
+
+La Figura \ref{fig:iftest_gate} muestra la relación entre la señal de referencia (y/o error) y la señal de \emph{gate}. Notar que cuando la señal de \emph{gate} se encuentra baja, la otra también. De esta manera, quién muestrea estas señales puede evitar muestras no útiles.
+
+\section{Undersampling}
+
+Para poder visualizar los resultados obtenidos siguiendo la técnica de \emph{undersampling}, se hizo uso del conversor digital a analógico DAC1411 de la marca Digilent. Este proceso consistió en volver a convertir las muestras al formato analógico para que puedan ser apreciadas en un osciloscopio. Los resultados se ven en la Figura \ref{fig:osc_25}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/10.2_0.png}
+    \caption{\emph{Aliasing} resultado de la técnica de \emph{undersampling}, en tiempo (rosado) y frecuencia (rojo) (Osciloscopio)}
+    \label{fig:osc_25}
+\end{figure}
+
+Los resultados son fieles a la simulación mostrada en la Figura \ref{fig:sim_monopulso}: El espectro de la señal se encuentra centrado (línea vertical izquierda) en 5.55 [MHz] aproximadamente, lo cual difiere del cálculo teórico (Figura \ref{fig:paperfold_col}) en no más que 0.14 [MHz]. La amplitud de la señal en tiempo coincide con la de la señal original.
+
+\section{Filtrado}
+
+La señal de \emph{aliasing} procede a ser filtrada para tener una mejor calidad de la señal y menores variaciones en alta frecuencia. La salida del filtro digital, que funciona como \emph{pasabajos}, se ve en la Figura \ref{fig:filtrado}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/10.3_0.png}
+    \caption{\emph{Aliasing} resultado (filtrado) de la técnica de \emph{undersampling}, en tiempo (rosado) y frecuencia (rojo) (Osciloscopio)}
+    \label{fig:filtrado}
+\end{figure}
+
+\section{Procesamiento de las señales}
+
+Las salidas del sistema (Figura \ref{fig:modulos}) son la relación de amplitud entre las señales y una bandera indicando si están en fase o no. A continuación se muestra un ejemplo de estas variables enviadas en tiempo real mediante envío serializado hacia otra computadora: \newline\newline
+
+\begin{Verbatim}[frame=single]
+    REF=0.494 [V] - ERR=0.522 [V] - REL=1.055 - FASE=SI
+    REF=0.513 [V] - ERR=0.054 [V] - REL=0.102 - FASE=SI
+    REF=0.515 [V] - ERR=0.053 [V] - REL=0.102 - FASE=NO
+\end{Verbatim}
+
+Dónde <<REF>> es la amplitud de la señal de referencia, <<ERR>> es la amplitud de la señal de error, <<REL>> es la relación (cociente) entre las anteriores y <<FASE>> indica si las señales están o no en fase. \par
+
+El envío tipo serie se hizo solamente para tener lecturas en la etapa de desarrollo, mientras que para la etapa de producción el envío en paralelo será el adecuado: El controlador del servo-motor recibirá la relación que hay entre las señales y la bandera de fase de manera concurrente, ganando así tiempo y ancho de banda en el procesamiento (a costo de necesitar más señales). \par
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10cm]{gfx/10.4_0.png}
+    \caption{Diagrama del sistema llevado a producción}
+    \label{fig:produccion}
+\end{figure}
+
+Como se mencionó anteriormente, la bandera de fase le indica al controlador hacia dónde se debe mover el servo para apuntar mejor, mientras que la relación de amplitud le indica cuánto moverse en esa dirección. \par

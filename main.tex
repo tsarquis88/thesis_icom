@@ -70,7 +70,8 @@
 
 %\cleardoublepage\include{FrontBackMatter/Foreword} % Uncomment and create a Foreword.tex to include a foreword
 
-\cleardoublepage\include{FrontBackMatter/Abstract} % Abstract page
+% En el abstract se suele poner que se hizo, y los resultados obtenidos, por eso se suele escribir al ultimo. 
+\cleardoublepage\include{FrontBackMatter/Abstract} % Abstract page 
 
 % \cleardoublepage\include{FrontBackMatter/Publications} % Publications from the thesis page
 
@@ -87,69 +88,38 @@
 
 \cleardoublepage % Avoids problems with pdfbookmark
 
-%----------------------------------------------------------------------------------------
-%	THESIS CONTENT - CHAPTERS
-%----------------------------------------------------------------------------------------
-
-\ctparttext{Breve introducción sobre el proyecto, aclarando motivaciones y objetivos del mismo}
-
+%-----------
+\ctparttext{Breve introducción sobre el proyecto, aclarando motivaciones y objetivos del mismo.}
 \part{Introducción}
-
 \include{Chapters/01Introduccion}
-
 \cleardoublepage
-
-%------------------------------------------------
-
+%-----------
 \ctparttext{En el siguiente marco teórico se ahonda en temáticas a conocer para poder entender el posterior desarrollo e implementación del proyecto integrador.}
-
 \part{Marco teórico}
-
 \include{Chapters/02MarcoTeorico}
-
 \cleardoublepage
-
-%------------------------------------------------
-
+%-----------
 \ctparttext{Descripción detallada del diseño que se propuso para cumplir los objetivos del proyecto.}
-
 \part{Diseño de solución}
-
 \include{Chapters/03DiseñoDeSolucion}
-
 \cleardoublepage
-
-%------------------------------------------------
-
-\ctparttext{Implementación y resultados del diseño}
-
-\part{Implementación}
-
-\include{Chapters/04Implementacion}
-
+%-----------
+\ctparttext{Resultados de la implementación del diseño.}
+\part{Resultados}
+\include{Chapters/04Resultados}
 \cleardoublepage
-
-%----------------------------------------------------------------------------------------
-%	THESIS CONTENT - APPENDICES
-%----------------------------------------------------------------------------------------
-
+%-----------
+\ctparttext{Conclusiones en base a los resultados obtenidos.}
+\part{Conclusión}
+\include{Chapters/05Conclusion}
+\cleardoublepage
+%-----------
 \appendix
-
-\part{Apéndice} % New part of the thesis for the appendix
-
-\include{Chapters/Chapter0A} % Appendix A
-%\include{Chapters/Chapter0B} % Appendix B - empty template
-
-%----------------------------------------------------------------------------------------
-%	POST-CONTENT THESIS PAGES
-%----------------------------------------------------------------------------------------
-
-\cleardoublepage\include{FrontBackMatter/Bibliography} % Bibliography
-
-\cleardoublepage\include{FrontBackMatter/Declaration} % Declaration
-
-\cleardoublepage\include{FrontBackMatter/Colophon} % Colophon
-
-%----------------------------------------------------------------------------------------
-
+\ctparttext{}
+\part{Anexo}
+\include{Chapters/06Anexo}
+\cleardoublepage
+%-----------
+\cleardoublepage\include{FrontBackMatter/Bibliography} 
+%-----------
 \end{document}
